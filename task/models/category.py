@@ -9,7 +9,7 @@ class Category(BaseEntity):
     banner = models.ImageField(upload_to='category', blank=True, null=True)
 
     def __str__(self):
-        return self.name[30]
+        return self.name[:40]
 
     def clean(self):
         pass
