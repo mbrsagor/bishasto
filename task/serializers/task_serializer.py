@@ -13,5 +13,8 @@ class TaskSerializer(serializers.ModelSerializer):
 class TaskManagerSerializer(serializers.ModelSerializer):
     class Meta:
         model = TaskManager
-        fields = '__all__'
+        fields = (
+            'id', 'tasks', 'manage_by', 'task_status', 'start_time', 'end_time', 'is_active',
+            'calculation', 'created_at', 'updated_at'
+        )
         read_only_fields = ['manage_by']

@@ -28,3 +28,8 @@ class TaskManager(BaseEntity):
 
     def __str__(self):
         return self.tasks.name if self.tasks and self.tasks.name else ""
+
+    # Task calculation
+    def calculation(self):
+        result = self.end_time - self.start_time
+        return result
