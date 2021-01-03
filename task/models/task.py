@@ -10,7 +10,7 @@ class Task(BaseEntity):
     name = models.CharField(max_length=100)
     description = models.TextField()
     status = models.BooleanField(default=True)
-    task_picture = models.ImageField(upload_to='task')
+    task_picture = models.ImageField(upload_to='task', null=True, blank=True)
     task_category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, related_name='addTask')
     created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='taskCreator')
 
