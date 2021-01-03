@@ -10,8 +10,8 @@ class TaskViewSet(ModelViewSet):
     serializer_class = TaskSerializer
     permission_classes = [IsAuthenticated, ]
 
-    def get_queryset(self):
-        return self.request.user.taskCreator.all()
+    def perform_create(self, serializer):
+        serializer.save(created_by=self.request.user)
 
 
 class TaskManagerViewSet(ModelViewSet):
@@ -19,5 +19,8 @@ class TaskManagerViewSet(ModelViewSet):
     serializer_class = TaskManagerSerializer
     permission_classes = [IsAuthenticated, ]
 
-    def get_queryset(self):
-        return self.request.user.taskManageBy.all()
+    # def get_queryset(self):
+    #     return self.request.user.taskManageBy.all()
+
+    def perform_create(self, serializer):
+        serializer.save(manage_by=self.request.user)
