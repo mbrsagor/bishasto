@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 
 from task.models.base import BaseEntity
 from task.models.category import Category
+from task.utils import TaskStatus
 
 
 class Task(BaseEntity):
@@ -18,9 +19,12 @@ class Task(BaseEntity):
 
 
 class TaskManager(BaseEntity):
-    title = models.CharField(max_length=50)
     tasks = models.ForeignKey(Task, on_delete=models.CASCADE, null=True, related_name='task')
+    manage_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='taskManageBy')
+    task_status = models.IntegerField(choices=TaskStatus.get_choices(), default=TaskStatus.RUNNING.value)
+    start_time = models.DateTimeField()
+    end_time = models.DateTimeField()
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return self.title
+        return self.tasks.name
