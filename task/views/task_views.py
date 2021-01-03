@@ -10,8 +10,14 @@ class TaskViewSet(ModelViewSet):
     serializer_class = TaskSerializer
     permission_classes = [IsAuthenticated, ]
 
+    def get_queryset(self):
+        return self.request.user.taskCreator.all()
+
 
 class TaskManagerViewSet(ModelViewSet):
     queryset = TaskManager.objects.all()
     serializer_class = TaskManagerSerializer
     permission_classes = [IsAuthenticated, ]
+
+    def get_queryset(self):
+        return self.request.user.taskManageBy.all()
