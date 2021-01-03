@@ -27,4 +27,4 @@ class TaskManager(BaseEntity):
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return self.tasks.name
+        return self.tasks.name if self.tasks and self.tasks.name else ""
