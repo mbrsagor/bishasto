@@ -19,3 +19,11 @@ class Category(BaseEntity):
 
     def children_count(self):
         return Category.objects.filter(parent=self).count()
+
+
+class Post(BaseEntity):
+    title = models.CharField(max_length=120)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, related_name='post_category')
+
+    def __str__(self):
+        return self.title[:50]
