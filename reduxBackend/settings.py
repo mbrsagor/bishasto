@@ -136,6 +136,7 @@ CORS_ORIGIN_WHITELIST = (
 
 # REST FRAMEWORK SETTINGS
 
+"""
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',
@@ -149,3 +150,4 @@ REST_FRAMEWORK = {
     # 'PAGE_SIZE': 10,
     # 'PAGINATE_BY_PARAM': 'page_size'
 }
+"""
