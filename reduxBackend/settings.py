@@ -151,6 +151,8 @@ REST_FRAMEWORK = {
     # 'PAGINATE_BY_PARAM': 'page_size'
 }
 
+# REST_USE_JWT = True
+
 """
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),
