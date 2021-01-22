@@ -22,11 +22,11 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/auth/', include('rest_auth.urls')),
     path('api/', include('task.urls')),
+
+    path('api/auth/login', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/rest-auth/registration', include('rest_auth.registration.urls')),
 
-    path('api/token/', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
 ]
 
 if settings.DEBUG:
