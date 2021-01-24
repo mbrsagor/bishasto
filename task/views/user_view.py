@@ -15,6 +15,6 @@ class UserAPIView(APIView):
             return Response(serializer.data)
         except Exception as e:
             return Response({
-                "message": "Sorry! you are not a authentication user.",
+                "message": "Sorry! Authentication credentials were not provided.",
                 "status": status.HTTP_404_NOT_FOUND
             })
