@@ -13,3 +13,8 @@ class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
         fields = '__all__'
+
+    def to_representation(self, instance):
+        response = super().to_representation(instance)
+        response['post_category'] = CategorySerializer(instance.post_category).data
+        return response
