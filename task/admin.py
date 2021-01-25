@@ -28,21 +28,12 @@ admin.site.register(Task, TaskAdmin)
 
 
 class TaskManagerAdmin(admin.ModelAdmin):
-    list_display = ['id', 'tasks', 'manage_by', 'task_status', 'start_time', 'end_time', 'is_active']
-    list_filter = ['tasks', 'manage_by']
-    list_editable = ['task_status', 'manage_by', 'is_active']
+    list_display = ['id', 'tasks', 'task_status', 'start_time', 'end_time', 'is_active']
+    list_filter = ['tasks']
+    list_editable = ['task_status', 'is_active']
     search_fields = ['name', 'status']
     list_display_links = ['tasks']
     list_per_page = 8
 
 
 admin.site.register(TaskManager, TaskManagerAdmin)
-
-
-class PostAdmin(admin.ModelAdmin):
-    list_display = ['id', 'title', 'post_category']
-    list_filter = ['title', 'post_category']
-    search_fields = ['title', 'post_category']
-    list_display_links = ['title']
-    list_per_page = 8
-

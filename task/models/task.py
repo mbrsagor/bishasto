@@ -20,7 +20,6 @@ class Task(BaseEntity):
 
 class TaskManager(BaseEntity):
     tasks = models.ForeignKey(Task, on_delete=models.CASCADE, null=True, related_name='task')
-    manage_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='taskManageBy')
     task_status = models.IntegerField(choices=TaskStatus.get_choices(), default=TaskStatus.RUNNING.value)
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
