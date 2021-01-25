@@ -4,9 +4,9 @@ from task.models.task import Task, TaskManager
 
 
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ['id', 'name', 'parent', 'order']
+    list_display = ['id', 'name', 'parent', 'order', 'isActive']
     search_fields = ['name']
-    list_editable = ['parent', 'order']
+    list_editable = ['parent', 'order', 'isActive']
     list_filter = ['name', 'parent']
     list_display_links = ['name']
     list_per_page = 8

@@ -6,7 +6,7 @@ class Category(BaseEntity):
     name = models.CharField(max_length=70)
     parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='category')
     order = models.IntegerField(default=999)
-    banner = models.ImageField(upload_to='category', blank=True, null=True)
+    isActive = models.BooleanField(default=True)
 
     def __str__(self):
         return self.name[:40]
