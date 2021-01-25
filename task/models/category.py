@@ -27,7 +27,6 @@ class Post(BaseEntity):
     post_category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, related_name='post_category')
     author = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='author')
     description = models.TextField(blank=True)
-    image = models.ImageField(upload_to='post', blank=True, null=True)
 
     def __str__(self):
         return self.title[:50]
