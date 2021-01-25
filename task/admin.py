@@ -1,5 +1,5 @@
 from django.contrib import admin
-from task.models.category import Category, Post
+from task.models.category import Category
 from task.models.task import Task, TaskManager
 
 
@@ -46,5 +46,3 @@ class PostAdmin(admin.ModelAdmin):
     list_display_links = ['title']
     list_per_page = 8
 
-
-admin.site.register(Post)

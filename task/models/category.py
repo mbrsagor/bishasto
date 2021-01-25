@@ -1,5 +1,4 @@
 from django.db import models
-from django.contrib.auth.models import User
 from task.models.base import BaseEntity
 
 
@@ -21,11 +20,3 @@ class Category(BaseEntity):
     def children_count(self):
         return Category.objects.filter(parent=self).count()
 
-
-class Post(BaseEntity):
-    title = models.CharField(max_length=120)
-    post_category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, related_name='post_category')
-    description = models.TextField(blank=True)
-
-    def __str__(self):
-        return self.title[:50]

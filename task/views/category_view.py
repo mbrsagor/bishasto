@@ -1,8 +1,8 @@
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticated
 
-from task.models.category import Category, Post
-from task.serializers.category_serializer import CategorySerializer, PostSerializer
+from task.models.category import Category
+from task.serializers.category_serializer import CategorySerializer
 
 
 class CategoryViewSet(ModelViewSet):
@@ -10,7 +10,3 @@ class CategoryViewSet(ModelViewSet):
     serializer_class = CategorySerializer
     permission_classes = (IsAuthenticated,)
 
-
-class PostViewSet(ModelViewSet):
-    queryset = Post.objects.all()
-    serializer_class = PostSerializer
