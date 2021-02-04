@@ -5,7 +5,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'taskmanager',
-        'USER': 'macair',
+        'USER': 'mbr-sagor',
         'PASSWORD': '12345',
         'HOST': 'localhost',
         'PORT': '',

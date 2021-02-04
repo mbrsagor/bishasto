@@ -8,7 +8,7 @@
 
 - Python 3.8.5
 - Django 3.1.4
-- postgres  12.3
+- postgres  12.5
 
 The following steps will walk you thru installation on a Mac. Linux should be similar. It's also possible to develop 
 on a Windows machine, but I have not documented the steps. If you've developed django apps on Windows, you should have little problem getting up and running.
@@ -32,4 +32,4 @@ pip install -r requirements.txt
 
 N:B: If any kid of `psql` connection fail you may follow the below command line.
 
-```python -m pip install psycopg2-binary```
+```pip install psycopg2-binary```
