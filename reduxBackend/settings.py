@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'task',
+    'member',
 
     # 3rd party Apps
     'rest_framework',
