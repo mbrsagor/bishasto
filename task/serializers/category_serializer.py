@@ -6,7 +6,7 @@ from task.models.category import Category
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = ('id', 'name', 'parent', 'order', 'isActive', 'created_at', 'updated_at')
+        fields = ('id', 'name', 'parent', 'isActive', 'created_at', 'updated_at')
 
     def to_representation(self, instance):
         response = super().to_representation(instance)
