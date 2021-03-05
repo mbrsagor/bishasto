@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     'task',
     'member',
+    'account',
 
     # 3rd party Apps
     'rest_framework',
