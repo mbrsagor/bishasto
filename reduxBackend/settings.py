@@ -137,6 +137,8 @@ CORS_ORIGIN_WHITELIST = (
     'http://localhost:8000',
 )
 
+AUTH_USER_MODEL = 'account.User'
+
 # REST FRAMEWORK SETTINGS
 
 REST_FRAMEWORK = {
