@@ -48,9 +48,11 @@ THIRD_PARTY_APPS = [
     'rest_auth.registration',
     'corsheaders'
 ]
+
 LOCAL_APPS = [
     'task',
     'account',
+    'members',
 ]
 
 INSTALLED_APPS = DEFAULT_APPS + THIRD_PARTY_APPS + LOCAL_APPS
