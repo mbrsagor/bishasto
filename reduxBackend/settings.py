@@ -30,7 +30,7 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-INSTALLED_APPS = [
+DEFAULT_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -38,19 +38,22 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'task',
-    'account',
+]
 
-    # 3rd party Apps
+THIRD_PARTY_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
-    # 'rest_auth',
-    # 'django.contrib.sites',
-    # 'allauth',
-    # 'allauth.account',
-    # 'rest_auth.registration',
-    'corsheaders',
+    'rest_auth', 'allauth',
+    'django.contrib.sites',
+    'rest_auth.registration',
+    'corsheaders'
 ]
+LOCAL_APPS = [
+    'task',
+    'account',
+]
+
+INSTALLED_APPS = DEFAULT_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 SITE_ID = 1

@@ -25,7 +25,7 @@ urlpatterns = [
     path('api/', include('task.urls')),
 
     path('api/auth/login', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    # path('api/rest-auth/registration', include('rest_auth.registration.urls')),
+    path('api/rest-auth/registration', include('rest_auth.registration.urls')),
 
 ]
 
