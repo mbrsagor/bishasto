@@ -7,3 +7,4 @@ migrations/
 media
 
 .DS_Store
+.env
