@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from account.models import User
 
 from task.models.base import BaseEntity
 from task.models.category import Category

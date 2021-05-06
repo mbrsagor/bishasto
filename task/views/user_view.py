@@ -15,6 +15,7 @@ class UserAPIView(APIView):
             serializer = UserSerializer(queryset)
             return Response(serializer.data)
         except Exception as e:
+            print(e)
             return Response({
                 "message": "Sorry! Authentication credentials were not provided.",
                 "status": status.HTTP_404_NOT_FOUND
