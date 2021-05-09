@@ -23,7 +23,6 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('task.urls')),
-
     path('api/auth/login', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/rest-auth/registration', include('rest_auth.registration.urls')),
 
