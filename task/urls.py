@@ -16,5 +16,7 @@ urlpatterns = [
     path('user', UserAPIView.as_view()),
     path('login/', CustomJWTView.as_view()),
     path('services/', ServiceAPIView.as_view()),
+    path('services/<int:pk>/', ServiceAPIView.as_view()),
+    path('services/delete/<int:pk>/', ServiceAPIView.as_view()),
 ] + router.urls
 
