@@ -1,6 +1,7 @@
 from django.contrib import admin
 from task.models.category import Category
 from task.models.task import Task, TaskManager
+from task.models.service import Service
 
 
 class CategoryAdmin(admin.ModelAdmin):
@@ -37,3 +38,13 @@ class TaskManagerAdmin(admin.ModelAdmin):
 
 
 admin.site.register(TaskManager, TaskManagerAdmin)
+
+
+class ServiceAdminManager(admin.ModelAdmin):
+    list_display = ['id', 'name', 'manager', 'is_active', 'services']
+    search_fields = ['name', 'is_active']
+    list_display_links = ['name', 'manager']
+    list_per_page = 8
+
+
+admin.site.register(Service, ServiceAdminManager)
