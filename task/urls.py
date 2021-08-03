@@ -13,8 +13,10 @@ router.register('task', TaskViewSet)
 router.register('task-manager', TaskManagerViewSet)
 
 urlpatterns = [
+    # User API endpoint
     path('user', UserAPIView.as_view()),
     path('login/', CustomJWTView.as_view()),
+    # Service API endpoint
     path('services/', ServiceAPIView.as_view()),
     path('services/<int:pk>/', ServiceAPIView.as_view()),
     path('services/delete/<int:pk>/', ServiceAPIView.as_view()),
