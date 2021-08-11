@@ -26,17 +26,17 @@ services:
     links:
       - db:db
 
-#  nginx:
-#    container_name: taskManager_nginx
-#    build: ./nginx
-#    restart: always
-#    ports:
-#      - 8086:80
-#    depends_on:
-#      - web
-#    volumes:
-#    - media_data:/media
-#    - static_data:/static
+  nginx:
+    container_name: taskManager_nginx
+    build: ./nginx
+    restart: always
+    ports:
+      - 8086:80
+    depends_on:
+      - web
+    volumes:
+    - media_data:/media
+    - static_data:/static
 
 volumes:
   media_data:
