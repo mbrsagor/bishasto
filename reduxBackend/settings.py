@@ -163,7 +163,6 @@ CORS_ORIGIN_WHITELIST = (
 AUTH_USER_MODEL = 'account.User'
 
 # REST FRAMEWORK SETTINGS
-
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',
