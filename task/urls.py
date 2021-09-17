@@ -5,6 +5,7 @@ from task.views.category_view import CategoryViewSet
 from task.views.task_views import TaskViewSet, TaskManagerViewSet
 from task.views.user_view import UserAPIView, CustomJWTView
 from task.views.service_views import ServiceAPIView
+from task.views.todo_views import TodoAPIView
 
 router = DefaultRouter()
 
@@ -20,5 +21,6 @@ urlpatterns = [
     path('services/', ServiceAPIView.as_view()),
     path('services/<int:pk>/', ServiceAPIView.as_view()),
     path('services/delete/<int:pk>/', ServiceAPIView.as_view()),
+    # Todo API view
+    path('todo/', TodoAPIView.as_view()),
 ] + router.urls
-
