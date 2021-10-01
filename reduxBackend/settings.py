@@ -179,6 +179,9 @@ REST_FRAMEWORK = {
     'PAGINATE_BY_PARAM': 'page_size'
 }
 
+# Celery configuration
+CELERY_BROKER_URL = 'redis://localhost:6379/'
+
 # Mail sending SMTP configuration
 EMAIL_USE_TLS = env("EMAIL_USE_TLS")
 EMAIL_HOST = env("EMAIL_HOST")
