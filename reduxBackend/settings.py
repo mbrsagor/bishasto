@@ -13,8 +13,6 @@ import os
 import environ
 from datetime import timedelta
 
-# from config.db_config import DATABASES
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
