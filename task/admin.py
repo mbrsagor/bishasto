@@ -2,6 +2,7 @@ from django.contrib import admin
 from task.models.category import Category
 from task.models.task import Task, TaskManager
 from task.models.service import Service
+from task.models.QRCode import GenerateQR
 
 
 class CategoryAdmin(admin.ModelAdmin):
@@ -48,3 +49,5 @@ class ServiceAdminManager(admin.ModelAdmin):
 
 
 admin.site.register(Service, ServiceAdminManager)
+
+admin.site.register(GenerateQR)
