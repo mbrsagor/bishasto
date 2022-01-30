@@ -1,7 +1,7 @@
-"""reduxBackend URL Configuration
+"""bishasto URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/3.1/topics/http/urls/
+    https://docs.djangoproject.com/en/4.0/topics/http/urls/
 Examples:
 Function views
     1. Add an import:  from my_app import views
@@ -15,17 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from rest_framework_simplejwt import views as jwt_views
 
+# Load static files
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include('task.urls')),
-    path('api/auth/login', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('api/rest-auth/registration', include('rest_auth.registration.urls')),
-
+    path('api/user/', include('user.urls')),
 ]
 
 if settings.DEBUG:

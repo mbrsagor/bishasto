@@ -1,0 +1,18 @@
+SECRET_KEY='django-insecure-=uu$i&ja%5x$xx)-9ow3a56#wl7v)rc7@x1=6+o#8im#kr3f59'
+DEBUG=True
+ALLOWED_HOSTS=*
+
+# For database information
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=db_name
+DB_USER=db_user
+DB_PASSWORD=db_password
+
+# SMTP Mail configuration
+EMAIL_HOST_USER='your.email@gmail.com'
+EMAIL_HOST='smtp@gmail.com'
+EMAIL_HOST_PASSWORD='emailhostpassword'
+EMAIL_PORT=587
+EMAIL_TLS=True
+EMAIL_SSL=False

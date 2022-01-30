@@ -26,18 +26,3 @@ def prepare_error_response(serializer_error):
         "data": None
     }
     return response
-
-
-def prepare_generic_error(error_code, details):
-    """
-    method for build generic error
-    @param error_code: error_code should be provided by this param
-    @param details: error message
-    :return:
-    """
-    response = {
-        "type": 'error',
-        "message": details,
-        "data": None
-    }
-    return response
