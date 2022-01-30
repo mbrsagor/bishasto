@@ -46,6 +46,7 @@ DEFAULT_APPS = [
 ]
 
 LIBRARY_APPS = [
+    'core',
     'user',
 ]
 
