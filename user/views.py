@@ -3,9 +3,9 @@ from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 
-from .models import User
-from .serializers import UserCreateSerializer, UserSerializer
-from utils.response import prepare_create_success_response, prepare_error_response
+from .models import User, Profile
+from .serializers import UserCreateSerializer, UserSerializer, ProfileSerializer
+from utils.response import prepare_create_success_response, prepare_error_response, prepare_success_response
 from utils.validation import password_validation
 
 
@@ -41,16 +41,18 @@ class LoginAPIView(ObtainAuthToken):
 
 
 # User Profile API
-class ProfileView(views.APIView):
+class ProfileAPIView(views.APIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request):
         try:
+            profile = Profile.objects.get(id=self.request.user.id)
+            serializer = ProfileSerializer(profile)
+            return Response(prepare_success_response(serializer.data), status=status.HTTP_200_OK)
+        except Exception as e:
             queryset = User.objects.get(id=self.request.user.id)
             serializer = UserSerializer(queryset)
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        except User.DoesNotExist:
-            return Response(prepare_error_response('Sorry! User must be login'), status=status.HTTP_400_BAD_REQUEST)
+            return Response(prepare_success_response(serializer.data), status=status.HTTP_200_OK)
 
 
 # Profile update
@@ -59,14 +61,14 @@ class ProfileUpdateView(views.APIView):
 
     def get_object(self, pk):
         try:
-            return User.objects.filter(id=pk).first()
-        except User.DoesNotExist:
+            return Profile.objects.filter(id=pk).first()
+        except Profile.DoesNotExist:
             return None
 
     def put(self, request, pk):
-        user = self.get_object(pk)
-        if user is not None:
-            serializer = UserSerializer(user, data=request.data)
+        profile = self.get_object(pk)
+        if profile is not None:
+            serializer = ProfileSerializer(profile, data=request.data)
             if serializer.is_valid():
                 serializer.save()
                 return Response(prepare_create_success_response(serializer.data), status=status.HTTP_201_CREATED)

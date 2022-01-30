@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth.password_validation import validate_password
 
-from .models import User
+from .models import User, Profile
 
 
 class UserCreateSerializer(serializers.ModelSerializer):
@@ -11,7 +11,7 @@ class UserCreateSerializer(serializers.ModelSerializer):
         model = User
         fields = (
             'id', 'username', 'email', 'phone_number', 'role',
-            'gender', 'address', 'date_of_birth', 'password'
+            'gender', 'address', 'password'
         )
 
     def create(self, validated_data):
@@ -22,7 +22,6 @@ class UserCreateSerializer(serializers.ModelSerializer):
             role=validated_data['role'],
             gender=validated_data['gender'],
             address=validated_data['address'],
-            date_of_birth=validated_data['date_of_birth'],
             password=validated_data['password']
         )
         return user
@@ -33,6 +32,15 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = (
             'id', 'username', 'email', 'phone_number', 'role',
-            'gender', 'address', 'date_of_birth', 'last_login', 'date_joined',
+            'gender', 'address', 'last_login', 'date_joined',
             'is_staff', 'is_active', 'is_superuser', 'groups', 'user_permissions'
+        )
+
+
+class ProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        read_only_fields = ('user',)
+        fields = (
+            'user', 'nick_name', 'date_of_birth', 'profile_picture', 'created_at'
         )
