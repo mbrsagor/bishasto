@@ -44,3 +44,8 @@ class ProfileSerializer(serializers.ModelSerializer):
         fields = (
             'user', 'nick_name', 'date_of_birth', 'profile_picture', 'created_at'
         )
+
+    def to_representation(self, instance):
+        response = super().to_representation(instance)
+        response['user'] = UserSerializer(instance.user).data
+        return response

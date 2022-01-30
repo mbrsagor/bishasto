@@ -42,14 +42,15 @@ class LoginAPIView(ObtainAuthToken):
 
 # User Profile API
 class ProfileAPIView(views.APIView):
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated, ]
 
     def get(self, request):
         try:
-            profile = Profile.objects.get(id=self.request.user.id)
-            serializer = ProfileSerializer(profile)
+            queryset = Profile.objects.get(id=self.request.user.id)
+            serializer = ProfileSerializer(queryset)
             return Response(prepare_success_response(serializer.data), status=status.HTTP_200_OK)
         except Exception as e:
+            print(e)
             queryset = User.objects.get(id=self.request.user.id)
             serializer = UserSerializer(queryset)
             return Response(prepare_success_response(serializer.data), status=status.HTTP_200_OK)
@@ -61,7 +62,7 @@ class ProfileUpdateView(views.APIView):
 
     def get_object(self, pk):
         try:
-            return Profile.objects.filter(id=pk).first()
+            return Profile.objects.get(id=pk)
         except Profile.DoesNotExist:
             return None
 
@@ -70,7 +71,7 @@ class ProfileUpdateView(views.APIView):
         if profile is not None:
             serializer = ProfileSerializer(profile, data=request.data)
             if serializer.is_valid():
-                serializer.save()
+                serializer.save(user=request.user)
                 return Response(prepare_create_success_response(serializer.data), status=status.HTTP_201_CREATED)
             return Response(prepare_error_response(serializer.errors), status=status.HTTP_400_BAD_REQUEST)
         else:
