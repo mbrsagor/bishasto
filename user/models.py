@@ -15,6 +15,7 @@ class User(AbstractUser):
     date_of_birth = models.DateField(default=datetime.now)
     is_superuser = models.BooleanField(default=False)
 
+    USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email', 'phone_number']
     objects = UserManager()
 
@@ -22,11 +23,7 @@ class User(AbstractUser):
         ordering = ('-id',)
 
     def __str__(self):
-        return str(self.username)
-
-    @property
-    def get_full_name(self):
-        return f"{self.first_name} {self.last_name}"
+        return str(self.email)
 
     @property
     def current_age(self):

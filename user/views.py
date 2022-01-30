@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from .models import User
 from .serializers import UserCreateSerializer, UserSerializer
 from utils.response import prepare_create_success_response, prepare_error_response
+from utils.validation import password_validation
 
 
 # User Registration API
@@ -13,6 +14,9 @@ class UserCreateAPIView(views.APIView):
     permission_classes = [permissions.AllowAny, ]
 
     def post(self, request):
+        validation_error = password_validation(request.data)
+        if validation_error is not None:
+            return Response(prepare_error_response(validation_error), status=status.HTTP_400_BAD_REQUEST)
         serializer = UserCreateSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
