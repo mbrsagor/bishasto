@@ -1,10 +1,11 @@
-from rest_framework import views, status, permissions
+from django.contrib.auth import logout
+from rest_framework import views, status, permissions, generics
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 
 from .models import User, Profile
-from .serializers import UserCreateSerializer, UserSerializer, ProfileSerializer
+from .serializers import UserCreateSerializer, UserSerializer, ProfileSerializer, PasswordChangeSerializer
 from utils.response import prepare_create_success_response, prepare_error_response, prepare_success_response
 from utils.validation import password_validation
 
@@ -76,3 +77,19 @@ class ProfileUpdateView(views.APIView):
             return Response(prepare_error_response(serializer.errors), status=status.HTTP_400_BAD_REQUEST)
         else:
             return Response(prepare_error_response("No user found for this ID"), status=status.HTTP_400_BAD_REQUEST)
+
+
+# Change Password
+class ChangePasswordView(generics.UpdateAPIView):
+    queryset = User.objects.all()
+    permission_classes = (permissions.IsAuthenticated,)
+    serializer_class = PasswordChangeSerializer
+
+
+# Logout
+class LogoutView(views.APIView):
+    permission_classes = [permissions.IsAuthenticated, ]
+
+    def post(self, request):
+        logout(request)
+        return Response(prepare_success_response('user has been logout'), status=status.HTTP_200_OK)
