@@ -1,0 +1,968 @@
+{
+	"info": {
+		"_postman_id": "47d2225b-12e0-4515-a425-d4b676997702",
+		"name": "bissasto",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"faysal\",\n    \"password\": \"join_12345\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/user/login/",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"user",
+								"login",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "registration",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"faysal\",\n    \"email\": \"faysal.ahemd@gmail.com\",\n    \"phone_number\": \"01773474710\",\n    \"gender\": 0,\n    \"role\": 4,\n    \"password\": \"join_12345\",\n    \"address\": \"Gazipur, Shimultoli, Dhaka, Bangladesh\",\n    \"date_of_birth\": \"1997-10-10\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/user/registration/",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"user",
+								"registration",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "logout",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "token f5212d2ced52328d6755e6e6cb0fe8bd65e5fcf2",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseurl}}/user/logout/",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"user",
+								"logout",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "profile",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "f5212d2ced52328d6755e6e6cb0fe8bd65e5fcf2",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "token",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "token f5212d2ced52328d6755e6e6cb0fe8bd65e5fcf2",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseurl}}/user/profile/",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"user",
+								"profile",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "change-password",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "token 107d187a5db98376a5e8d34863a59e17d55d8d47",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"old_password\": \"join_12345\",\n    \"new_password\": \"join_123\",\n    \"confirm_password\": \"join_123\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/user/password_change/5/",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"user",
+								"password_change",
+								"5",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "sign-up-V2",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"jon\",\n    \"email\": \"jon.ahemd@gmail.com\",\n    \"phone_number\": \"01773474711\",\n    \"gender\": 0,\n    \"password\": \"join_12345\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/user/api/register/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"user",
+								"api",
+								"register",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "profile_update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "token f5212d2ced52328d6755e6e6cb0fe8bd65e5fcf2",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 3,\n    \"nick_name\": \"Developer faysal\",\n    \"date_of_birth\": \"2022-01-30\",\n    \"profile_picture\": null\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/user/profile/3/",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"user",
+								"profile",
+								"3",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "password-change",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "token f5212d2ced52328d6755e6e6cb0fe8bd65e5fcf2",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"old_password\": \"join_12345\",\n    \"new_password\": \"dev@2022\",\n    \"confirm_password\": \"dev@2022\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/user/password_change/16/",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"user",
+								"password_change",
+								"16",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "orders",
+			"item": [
+				{
+					"name": "order-list",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "token f5212d2ced52328d6755e6e6cb0fe8bd65e5fcf2",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseurl}}/item/order/",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"item",
+								"order",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create-order",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "token f5212d2ced52328d6755e6e6cb0fe8bd65e5fcf2",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"item_name\": 23,\n    \"reference\": \"Faysal Ahmed\",\n    \"quantity\": 5,\n    \"payment_type\": 0,\n    \"transition_id\": \"7878787\",\n    \"address\": \"Gaibandha, Sundorgonj, Dhormopur bazlar\",\n    \"phone_number\": \"01750440099\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/item/order/",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"item",
+								"order",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "order-details",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "token 107d187a5db98376a5e8d34863a59e17d55d8d47",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/item/order/32/",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"item",
+								"order",
+								"32",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "order-status-update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "token 107d187a5db98376a5e8d34863a59e17d55d8d47",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 32,\n    \"item_name\": 17,\n    \"status\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/item/order/32/",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"item",
+								"order",
+								"32",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "shop",
+			"item": [
+				{
+					"name": "shop",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "token f5212d2ced52328d6755e6e6cb0fe8bd65e5fcf2",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseurl}}/item/shop/",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"item",
+								"shop",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create-shop",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "token f5212d2ced52328d6755e6e6cb0fe8bd65e5fcf2",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"owner\": 6,\n    \"shop_name\": \"Faysal Digital Shop\",\n    \"shop_location\": 1,\n    \"current_shop_age\": 0,\n    \"is_available\": true,\n    \"tread_license\": \"Holisticly unleash multifunctional e-services whereas inexpensive process improvements.\",\n    \"address\": \"Kachur khamar, chourasta, Gaibandha\",\n    \"shop_created_date\": \"2020-01-10\",\n    \"phone_number\": \"01750998877\",\n    \"documents\": null,\n    \"shop_image\": null\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/item/shop/",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"item",
+								"shop",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "items",
+			"item": [
+				{
+					"name": "item-list",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "c3972b789dbdb8b9fecad63470616883dc5edbee",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/product/item/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"product",
+								"item",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create-item",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "token 8878afe7b3afecba88d002cad0cffcaff9e9c926",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"item_name\": \"Banana 100 orginal\",\n    \"item_category\": 5,\n    \"tags\": [\n        15,\n        16\n    ],\n    \"is_available\": true,\n    \"price\": \"4.0000000000\",\n    \"discount_price\": \"1.0000000000\",\n    \"sale_price\": \"7.0000000000\",\n    \"short_description\": \"Continually productivate installed base convergence before quality catalysts for change.\",\n    \"model\": \"\",\n    \"item_type\": 1,\n    \"item_image\": null\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/product/item/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"product",
+								"item",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "all-items",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "token 8878afe7b3afecba88d002cad0cffcaff9e9c926",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"latlong\": \"127.0456, -245.4564\",\n    \"filter_by_category\": \"category_id\",\n    \"search\": \"search_anything\",\n    \"search_by_range\": [\"low_price, high_price\"],\n    \"condtion\": [\"use, new\"],\n    \"product_review\": [\"upper, lower\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/product/item/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"product",
+								"item",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "item-update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "token 8878afe7b3afecba88d002cad0cffcaff9e9c926",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 48,\n    \"item_name\": \"hello dev 100% orginal\",\n    \"item_category\": 5,\n    \"tags\": [\n        15,\n        16\n    ],\n    \"is_available\": true,\n    \"price\": \"4.0000000000\",\n    \"discount_price\": \"1.0000000000\",\n    \"sale_price\": \"8.0000000000\",\n    \"short_description\": \"Continually productivate installed base convergence before quality catalysts for change.\",\n    \"model\": \"bd2\",\n    \"item_type\": 1,\n    \"item_image\": null\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/product/item/edit/48/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"product",
+								"item",
+								"edit",
+								"48",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "item-delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "token 107d187a5db98376a5e8d34863a59e17d55d8d47",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/product/item/delete/21/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"product",
+								"item",
+								"delete",
+								"21",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "item-details",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "token 107d187a5db98376a5e8d34863a59e17d55d8d47",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/product/item/detail/18/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"product",
+								"item",
+								"detail",
+								"18",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "category",
+			"item": [
+				{
+					"name": "category-list",
+					"request": {
+						"auth": {
+							"type": "apikey"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "token 9c0a76e24619e3ac9cd10a00e013a9073a2a08d4",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseurl}}/item/category/",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"item",
+								"category",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create-category",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "token 9c0a76e24619e3ac9cd10a00e013a9073a2a08d4",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " {\n    \"name\": \"Gazipur\",\n    \"parent\": 5,\n    \"is_active\": true,\n    \"image\": null\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/item/category/",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"item",
+								"category",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "category-delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "token 9c0a76e24619e3ac9cd10a00e013a9073a2a08d4",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseurl}}/item/category/12/",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"item",
+								"category",
+								"12",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "categoy-update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "token 9c0a76e24619e3ac9cd10a00e013a9073a2a08d4",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"id\": 10,\n        \"name\": \"Banana\",\n        \"parent\": 5,\n        \"is_active\": true,\n        \"image\": null\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/item/category/12/",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"item",
+								"category",
+								"12",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "location",
+			"item": [
+				{
+					"name": "location-list",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "token 9c0a76e24619e3ac9cd10a00e013a9073a2a08d4",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseurl}}/item/location/",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"item",
+								"location",
+								""
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "location-create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "token 9c0a76e24619e3ac9cd10a00e013a9073a2a08d4",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Kachur khamar\",\n    \"parent\": 4,\n    \"parent_type\": 3,\n    \"is_available\": true,\n    \"shop_image\": null\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/item/location/",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"item",
+								"location",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "location-update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "token 9c0a76e24619e3ac9cd10a00e013a9073a2a08d4",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 51,\n    \"name\": \"Kachur khamar\",\n    \"parent\": 4,\n    \"is_available\": true,\n    \"shop_image\": null,\n    \"location_type\": 5\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/item/location/12/",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"item",
+								"location",
+								"12",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "location-delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "token 9c0a76e24619e3ac9cd10a00e013a9073a2a08d4",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseurl}}/item/location/12/",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"item",
+								"location",
+								"12",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
