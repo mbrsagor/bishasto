@@ -4,6 +4,7 @@ from core.models.category import Category
 from core.models.shop import Shop
 from core.models.item import Item
 from core.models.order import Order
+from core.models.service import Service
 
 author__ = 'Sagor'
 
@@ -14,4 +15,5 @@ __all__ = [
     'Shop',
     'Item',
     'Order',
+    'Service',
 ]

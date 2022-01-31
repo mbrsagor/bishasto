@@ -2,6 +2,7 @@ from django.urls import path
 from rest_framework.routers import DefaultRouter
 
 from core.views.category_view import CategoryViewSet
+from core.views.service_view import ServiceViewSet
 from core.views.item_view import ItemAPIView, ItemUpdateDetailDeleteAPIView
 from core.views.location_view import LocationViewSet
 from core.views.shop_view import ShopProfileAPIView, ShopProfileUpdateDelete
@@ -11,6 +12,7 @@ router = DefaultRouter()
 # Location API endpoint
 router.register('location', LocationViewSet)
 router.register('category', CategoryViewSet)
+router.register('service', ServiceViewSet)
 
 urlpatterns = [
     # Item
