@@ -6,8 +6,11 @@ from core.models.shop import Shop
 
 class Schedule(BaseEntity):
     day_name = models.CharField(max_length=30)
-    start_schedule = models.DateTimeField()
-    end_schedule = models.DateTimeField()
+    start_schedule = models.TimeField()
+    end_schedule = models.TimeField()
+
+    def __str__(self):
+        return self.day_name
 
 
 class Service(BaseEntity):
