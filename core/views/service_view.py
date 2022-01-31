@@ -1,7 +1,7 @@
 from rest_framework import viewsets, permissions
 
 from core.models.service import Service, Schedule
-from core.serializers.service_serializer import ServiceSerializer
+from core.serializers.service_serializer import ServiceSerializer, ScheduleSerializer
 
 
 class ServiceViewSet(viewsets.ModelViewSet):
@@ -17,3 +17,9 @@ class ServiceViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(proprietor=self.request.user.shop_owner)
+
+
+class ScheduleViewSet(viewsets.ModelViewSet):
+    queryset = Schedule.objects.all()
+    serializer_class = ScheduleSerializer
+    permission_classes = [permissions.IsAdminUser]
