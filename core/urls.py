@@ -27,3 +27,5 @@ urlpatterns = [
     path('order/', OrderCreateListAPIView.as_view(), name='orders'),
     path('order/<pk>/', OrderStatusUpdateDetailsAPIView.as_view(), name='oder_update_details'),
 ] + router.urls
+
+# git remote set-url origin https://mbrsagor:token@github.com/mbrsagor//bishasto.git
