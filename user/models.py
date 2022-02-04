@@ -15,8 +15,8 @@ class User(AbstractUser):
     address = models.TextField(blank=True)
     is_superuser = models.BooleanField(default=False)
 
-    USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['email', 'phone_number']
+    USERNAME_FIELD = 'phone_number'
+    REQUIRED_FIELDS = ['email', 'username']
     objects = UserManager()
 
     class Meta:
