@@ -1,0 +1,14 @@
+[Unit]
+Description=gunicorn daemon
+After=network.target
+
+[Service]
+User=ubuntu
+Group=www-data
+WorkingDirectory=/home/ubuntu/bishasto
+ExecStart=/home/ubuntu/bishasto/venv/bin/gunicorn --access-logfile - --workers 3 --bind unix:/home/ubuntu/bishasto.sock bishasto.wsgi:application
+
+[Install]
+WantedBy=multi-user.target
+© 2022 GitHub, Inc.
+Terms
