@@ -30,3 +30,7 @@ class Order(BaseEntity):
     @property
     def commission_price(self):
         return self.item_name.commission
+
+    @property
+    def shop_name(self):
+        return self.item_name.proprietor.shop_name

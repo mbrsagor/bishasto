@@ -1,5 +1,7 @@
 from rest_framework import serializers
+
 from core.models.order import Order
+from core.serializers.item_serializer import ItemSerializer
 
 
 class OrderSerializer(serializers.ModelSerializer):
@@ -10,6 +12,7 @@ class OrderSerializer(serializers.ModelSerializer):
             'id',
             'user',
             'item_name',
+            'shop_name',
             'status',
             'reference',
             'quantity',
@@ -23,6 +26,11 @@ class OrderSerializer(serializers.ModelSerializer):
             'created_at',
             'updated_at'
         ]
+
+    def to_representation(self, instance):
+        response = super().to_representation(instance)
+        response['item_name'] = ItemSerializer(instance.item_name).data
+        return response
 
 
 class OrderStatusUpdateSerializer(serializers.ModelSerializer):
