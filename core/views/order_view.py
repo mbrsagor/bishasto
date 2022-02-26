@@ -1,6 +1,7 @@
 from rest_framework import views, generics, status, permissions
 from django_filters import rest_framework as filters
 from rest_framework.response import Response
+from utils.enum import ROLE
 from django.core.mail import send_mail
 from django.conf import settings
 
@@ -50,15 +51,18 @@ class OrderStatusUpdateDetailsAPIView(views.APIView):
         return Response(prepare_error_response("Content Not found"), status=status.HTTP_400_BAD_REQUEST)
 
     def put(self, request, pk):
-        order = self.get_object(pk)
-        if order is not None:
-            serializer = OrderStatusUpdateSerializer(order, data=request.data)
-            if serializer.is_valid(raise_exception=True):
-                serializer.save(user=self.request.user)
-                return Response(prepare_create_success_response(serializer.data), status=status.HTTP_201_CREATED)
-            return Response(prepare_error_response(serializer.errors), status=status.HTTP_400_BAD_REQUEST)
+        if request.user.role == ROLE.ADMIN or request.user.role == ROLE.MANAGER or request.user.role == ROLE.SHOPKEEPER:
+            order = self.get_object(pk)
+            if order is not None:
+                serializer = OrderStatusUpdateSerializer(order, data=request.data)
+                if serializer.is_valid(raise_exception=True):
+                    serializer.save(user=self.request.user)
+                    return Response(prepare_create_success_response(serializer.data), status=status.HTTP_201_CREATED)
+                return Response(prepare_error_response(serializer.errors), status=status.HTTP_400_BAD_REQUEST)
+            else:
+                return Response(prepare_error_response("No data found for this ID"), status=status.HTTP_400_BAD_REQUEST)
         else:
-            return Response(prepare_error_response("No data found for this ID"), status=status.HTTP_400_BAD_REQUEST)
+            return Response(prepare_error_response('You have no permission'), status=status.HTTP_400_BAD_REQUEST)
 
 
 class OrderFilterListView(generics.ListAPIView):

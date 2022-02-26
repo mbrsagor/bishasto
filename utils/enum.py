@@ -15,7 +15,7 @@ class ROLE(IntEnum):
     ADMIN = 0
     MANAGER = 1
     SHOPKEEPER = 2
-    DELIVERYBOY = 3
+    DELIVERY_MAN = 3
     CUSTOMER = 4
 
     @classmethod
