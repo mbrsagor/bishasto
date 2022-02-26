@@ -25,7 +25,7 @@ urlpatterns = [
     # User API endpoint
     path('api/user/', include('user.urls')),
     # Item API endpoint
-    path('api/item/', include('core.urls')),
+    path('api/v1/', include('core.urls')),
 ]
 
 if settings.DEBUG:

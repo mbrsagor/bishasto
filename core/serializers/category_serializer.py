@@ -1,5 +1,13 @@
 from rest_framework import serializers
-from core.models.category import Category
+from core.models.category import Category, Tag
+
+
+class TagSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Tag
+        fields = (
+            'id', 'name'
+        )
 
 
 class CategorySerializer(serializers.ModelSerializer):
