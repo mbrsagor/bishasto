@@ -1,4 +1,5 @@
-from rest_framework import views, status
+from rest_framework import views, generics, status, permissions
+from django_filters import rest_framework as filters
 from rest_framework.response import Response
 from django.core.mail import send_mail
 from django.conf import settings
@@ -6,9 +7,12 @@ from django.conf import settings
 from core.models.order import Order
 from core.serializers.order_seralizer import OrderSerializer, OrderStatusUpdateSerializer
 from utils.response import prepare_success_response, prepare_error_response, prepare_create_success_response
+from utils.pagination import StandardResultsSetPagination
+from utils.filters import OrderFilter
 
 
 class OrderCreateListAPIView(views.APIView):
+    permission_classes = (permissions.IsAuthenticated,)
 
     def get(self, request):
         if request.user.is_superuser:
@@ -30,6 +34,7 @@ class OrderCreateListAPIView(views.APIView):
 
 
 class OrderStatusUpdateDetailsAPIView(views.APIView):
+    permission_classes = (permissions.IsAuthenticated,)
 
     def get_object(self, pk):
         try:
@@ -54,3 +59,12 @@ class OrderStatusUpdateDetailsAPIView(views.APIView):
             return Response(prepare_error_response(serializer.errors), status=status.HTTP_400_BAD_REQUEST)
         else:
             return Response(prepare_error_response("No data found for this ID"), status=status.HTTP_400_BAD_REQUEST)
+
+
+class OrderFilterListView(generics.ListAPIView):
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
+    permission_classes = (permissions.IsAuthenticated,)
+    pagination_class = StandardResultsSetPagination
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_class = OrderFilter
