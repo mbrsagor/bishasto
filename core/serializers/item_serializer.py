@@ -2,7 +2,7 @@ from rest_framework import serializers
 
 from core.models.item import Item
 from core.models.category import Tag
-from core.serializers.category_serializer import TagSerializer
+from core.serializers.category_serializer import CategorySerializer, TagSerializer
 
 
 class ItemSerializer(serializers.ModelSerializer):
@@ -41,3 +41,8 @@ class ItemSerializer(serializers.ModelSerializer):
             'discount_price', 'commission', 'short_description', 'model', 'item_type',
             'created_at', 'updated_at', 'item_image', 'galley_image2', 'galley_image3'
         )
+
+    def to_representation(self, instance):
+        response = super().to_representation(instance)
+        response['item_category'] = CategorySerializer(instance.item_category).data
+        return response

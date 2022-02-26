@@ -9,7 +9,6 @@ from core.views.shop_view import ShopProfileAPIView, ShopProfileUpdateDelete
 from core.views.order_view import OrderCreateListAPIView, OrderStatusUpdateDetailsAPIView
 
 router = DefaultRouter()
-# Location API endpoint
 router.register('location', LocationViewSet)
 router.register('category', CategoryViewSet)
 router.register('service', ServiceViewSet)
@@ -28,4 +27,3 @@ urlpatterns = [
     path('order/<pk>/', OrderStatusUpdateDetailsAPIView.as_view(), name='oder_update_details'),
 ] + router.urls
 
-# git remote set-url origin https://mbrsagor:token@github.com/mbrsagor//bishasto.git
