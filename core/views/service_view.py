@@ -11,7 +11,10 @@ class ServiceViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         if not self.request.user.is_superuser:
-            return Service.objects.filter(proprietor=self.request.user.shop_owner)
+            try:
+                return Service.objects.filter(proprietor=self.request.user.shop_owner)
+            except Exception as e:
+                return str(e)
         else:
             return Service.objects.all()
 

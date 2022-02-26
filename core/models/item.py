@@ -9,7 +9,7 @@ class Item(BaseEntity):
     item_name = models.CharField(max_length=120)
     proprietor = models.ForeignKey(Shop, on_delete=models.CASCADE, related_name='item_shop')
     item_category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='item_category')
-    tags = models.ManyToManyField(Tag, related_name='item_tag', blank=True, null=True)
+    tags = models.ManyToManyField(Tag, related_name='item_tag')
     is_available = models.BooleanField(default=True)
     price = models.DecimalField(max_digits=20, decimal_places=10)
     commission = models.DecimalField(max_digits=20, decimal_places=10, default=0)
