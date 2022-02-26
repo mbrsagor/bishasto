@@ -21,7 +21,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"username\": \"faysal\",\n    \"password\": \"join_12345\"\n}\n",
+							"raw": "{\n    \"username\": \"dev\",\n    \"password\": \"dev@2022\"\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -252,7 +252,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"old_password\": \"join_12345\",\n    \"new_password\": \"dev@2022\",\n    \"confirm_password\": \"dev@2022\"\n}",
+							"raw": "{\n    \"old_password\": \"dev@2022\",\n    \"new_password\": \"join_12345\",\n    \"confirm_password\": \"join_12345\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -291,12 +291,12 @@
 							}
 						],
 						"url": {
-							"raw": "{{baseurl}}/item/order/",
+							"raw": "{{baseurl}}/v1/order/",
 							"host": [
 								"{{baseurl}}"
 							],
 							"path": [
-								"item",
+								"v1",
 								"order",
 								""
 							]
@@ -317,7 +317,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"item_name\": 23,\n    \"reference\": \"Faysal Ahmed\",\n    \"quantity\": 5,\n    \"payment_type\": 0,\n    \"transition_id\": \"7878787\",\n    \"address\": \"Gaibandha, Sundorgonj, Dhormopur bazlar\",\n    \"phone_number\": \"01750440099\"\n}\n",
+							"raw": "{\n    \"item_name\": 19,\n    \"reference\": \"Mbr Sagor Bhai\",\n    \"quantity\": 10,\n    \"payment_type\": 0,\n    \"transition_id\": \"383837\",\n    \"address\": \"Gaibandha, Sundorgonj, Dhormopur bazlar\",\n    \"phone_number\": \"01748880505\"\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -325,12 +325,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseurl}}/item/order/",
+							"raw": "{{baseurl}}/v1/order/",
 							"host": [
 								"{{baseurl}}"
 							],
 							"path": [
-								"item",
+								"v1",
 								"order",
 								""
 							]
@@ -348,7 +348,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "token 107d187a5db98376a5e8d34863a59e17d55d8d47",
+								"value": "token f5212d2ced52328d6755e6e6cb0fe8bd65e5fcf2",
 								"type": "text"
 							}
 						],
@@ -362,14 +362,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseurl}}/item/order/32/",
+							"raw": "{{baseurl}}/v1/order/25/",
 							"host": [
 								"{{baseurl}}"
 							],
 							"path": [
-								"item",
+								"v1",
 								"order",
-								"32",
+								"25",
 								""
 							]
 						}
@@ -383,13 +383,13 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "token 107d187a5db98376a5e8d34863a59e17d55d8d47",
+								"value": "token f5212d2ced52328d6755e6e6cb0fe8bd65e5fcf2",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\": 32,\n    \"item_name\": 17,\n    \"status\": 2\n}",
+							"raw": "{\n    \"id\": 25,\n    \"item_name\": 20,\n    \"status\": 3\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -397,15 +397,54 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseurl}}/item/order/32/",
+							"raw": "{{baseurl}}/v1/order/25/",
 							"host": [
 								"{{baseurl}}"
 							],
 							"path": [
-								"item",
+								"v1",
 								"order",
-								"32",
+								"25",
 								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "order-filter",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "token f5212d2ced52328d6755e6e6cb0fe8bd65e5fcf2",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseurl}}/v1/order-filter/?phone_number=01750440099&transition_id=7878787&status=0",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"v1",
+								"order-filter",
+								""
+							],
+							"query": [
+								{
+									"key": "phone_number",
+									"value": "01750440099"
+								},
+								{
+									"key": "transition_id",
+									"value": "7878787"
+								},
+								{
+									"key": "status",
+									"value": "0"
+								}
 							]
 						}
 					},
@@ -423,17 +462,17 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "token f5212d2ced52328d6755e6e6cb0fe8bd65e5fcf2",
+								"value": "token 06deda38dab3ece550c5ae4fb06c0df9a1ed0b33",
 								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "{{baseurl}}/item/shop/",
+							"raw": "{{baseurl}}/v1/shop/",
 							"host": [
 								"{{baseurl}}"
 							],
 							"path": [
-								"item",
+								"v1",
 								"shop",
 								""
 							]
@@ -448,13 +487,13 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "token f5212d2ced52328d6755e6e6cb0fe8bd65e5fcf2",
+								"value": "token 06deda38dab3ece550c5ae4fb06c0df9a1ed0b33",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"owner\": 6,\n    \"shop_name\": \"Faysal Digital Shop\",\n    \"shop_location\": 1,\n    \"current_shop_age\": 0,\n    \"is_available\": true,\n    \"tread_license\": \"Holisticly unleash multifunctional e-services whereas inexpensive process improvements.\",\n    \"address\": \"Kachur khamar, chourasta, Gaibandha\",\n    \"shop_created_date\": \"2020-01-10\",\n    \"phone_number\": \"01750998877\",\n    \"documents\": null,\n    \"shop_image\": null\n}",
+							"raw": "{\n    \"shop_name\": \"Faysal Digital Shop\",\n    \"shop_location\": 1,\n    \"current_shop_age\": 0,\n    \"is_available\": true,\n    \"tread_license\": \"Holisticly unleash multifunctional e-services whereas inexpensive process improvements.\",\n    \"address\": \"Kachur khamar, chourasta, Gaibandha\",\n    \"shop_created_date\": \"2020-01-10\",\n    \"phone_number\": \"01750998877\",\n    \"documents\": null,\n    \"shop_image\": null\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -462,12 +501,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseurl}}/item/shop/",
+							"raw": "{{baseurl}}/v1/shop/",
 							"host": [
 								"{{baseurl}}"
 							],
 							"path": [
-								"item",
+								"v1",
 								"shop",
 								""
 							]
@@ -487,23 +526,17 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "c3972b789dbdb8b9fecad63470616883dc5edbee",
+								"value": "token 06deda38dab3ece550c5ae4fb06c0df9a1ed0b33",
 								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "http://127.0.0.1:8000/api/product/item/",
-							"protocol": "http",
+							"raw": "{{baseurl}}/v1/item/",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{baseurl}}"
 							],
-							"port": "8000",
 							"path": [
-								"api",
-								"product",
+								"v1",
 								"item",
 								""
 							]
@@ -518,13 +551,13 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "token 8878afe7b3afecba88d002cad0cffcaff9e9c926",
+								"value": "token 06deda38dab3ece550c5ae4fb06c0df9a1ed0b33",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"item_name\": \"Banana 100 orginal\",\n    \"item_category\": 5,\n    \"tags\": [\n        15,\n        16\n    ],\n    \"is_available\": true,\n    \"price\": \"4.0000000000\",\n    \"discount_price\": \"1.0000000000\",\n    \"sale_price\": \"7.0000000000\",\n    \"short_description\": \"Continually productivate installed base convergence before quality catalysts for change.\",\n    \"model\": \"\",\n    \"item_type\": 1,\n    \"item_image\": null\n}",
+							"raw": "{\n    \"item_name\": \"Red banana orginal\",\n    \"item_category\": 10,\n    \"tags\": [\n        {\"name\": \"new\"},\n        {\"name\": \"new two\"}\n    ],\n    \"is_available\": true,\n    \"price\": \"4.0000000000\",\n    \"discount_price\": \"1.0000000000\",\n    \"sale_price\": \"7.0000000000\",\n    \"short_description\": \"Continually productivate installed base convergence before quality catalysts for change.\",\n    \"model\": \"m1\",\n    \"item_type\": 1,\n    \"item_image\": null\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -532,18 +565,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:8000/api/product/item/",
-							"protocol": "http",
+							"raw": "{{baseurl}}/v1/item/",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{baseurl}}"
 							],
-							"port": "8000",
 							"path": [
-								"api",
-								"product",
+								"v1",
 								"item",
 								""
 							]
@@ -601,13 +628,13 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "token 8878afe7b3afecba88d002cad0cffcaff9e9c926",
+								"value": "token 06deda38dab3ece550c5ae4fb06c0df9a1ed0b33",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\": 48,\n    \"item_name\": \"hello dev 100% orginal\",\n    \"item_category\": 5,\n    \"tags\": [\n        15,\n        16\n    ],\n    \"is_available\": true,\n    \"price\": \"4.0000000000\",\n    \"discount_price\": \"1.0000000000\",\n    \"sale_price\": \"8.0000000000\",\n    \"short_description\": \"Continually productivate installed base convergence before quality catalysts for change.\",\n    \"model\": \"bd2\",\n    \"item_type\": 1,\n    \"item_image\": null\n}",
+							"raw": "{\n    \"id\": 20,\n    \"item_name\": \"Red banana orginal\",\n    \"item_category\": 10,\n    \"tags\": [\n        {\"name\": \"new\"},\n        {\"name\": \"another new\"}\n    ],\n    \"is_available\": true,\n    \"price\": \"4.0000000000\",\n    \"discount_price\": \"1.0000000000\",\n    \"sale_price\": \"7.0000000000\",\n    \"short_description\": \"Continually productivate installed base convergence before quality catalysts for change.\",\n    \"model\": \"m1\",\n    \"item_type\": 1,\n    \"item_image\": null\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -615,21 +642,15 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:8000/api/product/item/edit/48/",
-							"protocol": "http",
+							"raw": "{{baseurl}}/v1/item/edit/20/",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{baseurl}}"
 							],
-							"port": "8000",
 							"path": [
-								"api",
-								"product",
+								"v1",
 								"item",
 								"edit",
-								"48",
+								"20",
 								""
 							]
 						}
@@ -676,26 +697,20 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "token 107d187a5db98376a5e8d34863a59e17d55d8d47",
+								"value": "token 06deda38dab3ece550c5ae4fb06c0df9a1ed0b33",
 								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "http://127.0.0.1:8000/api/product/item/detail/18/",
-							"protocol": "http",
+							"raw": "{{baseurl}}/v1/item/detail/20/",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{baseurl}}"
 							],
-							"port": "8000",
 							"path": [
-								"api",
-								"product",
+								"v1",
 								"item",
 								"detail",
-								"18",
+								"20",
 								""
 							]
 						}
@@ -717,17 +732,17 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "token 9c0a76e24619e3ac9cd10a00e013a9073a2a08d4",
+								"value": "token 06deda38dab3ece550c5ae4fb06c0df9a1ed0b33",
 								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "{{baseurl}}/item/category/",
+							"raw": "{{baseurl}}/v1/category/",
 							"host": [
 								"{{baseurl}}"
 							],
 							"path": [
-								"item",
+								"v1",
 								"category",
 								""
 							]
@@ -742,13 +757,13 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "token 9c0a76e24619e3ac9cd10a00e013a9073a2a08d4",
+								"value": "token 06deda38dab3ece550c5ae4fb06c0df9a1ed0b33",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": " {\n    \"name\": \"Gazipur\",\n    \"parent\": 5,\n    \"is_active\": true,\n    \"image\": null\n}",
+							"raw": " {\n    \"name\": \"Apple\",\n    \"parent\": 10,\n    \"is_active\": true,\n    \"image\": null\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -756,12 +771,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseurl}}/item/category/",
+							"raw": "{{baseurl}}/v1/category/",
 							"host": [
 								"{{baseurl}}"
 							],
 							"path": [
-								"item",
+								"v1",
 								"category",
 								""
 							]
@@ -781,12 +796,12 @@
 							}
 						],
 						"url": {
-							"raw": "{{baseurl}}/item/category/12/",
+							"raw": "{{baseurl}}/v1/category/12/",
 							"host": [
 								"{{baseurl}}"
 							],
 							"path": [
-								"item",
+								"v1",
 								"category",
 								"12",
 								""
@@ -816,12 +831,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseurl}}/item/category/12/",
+							"raw": "{{baseurl}}/v1/category/12/",
 							"host": [
 								"{{baseurl}}"
 							],
 							"path": [
-								"item",
+								"v1",
 								"category",
 								"12",
 								""
@@ -842,17 +857,17 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "token 9c0a76e24619e3ac9cd10a00e013a9073a2a08d4",
+								"value": "token 06deda38dab3ece550c5ae4fb06c0df9a1ed0b33",
 								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "{{baseurl}}/item/location/",
+							"raw": "{{baseurl}}/v1/location/",
 							"host": [
 								"{{baseurl}}"
 							],
 							"path": [
-								"item",
+								"v1",
 								"location",
 								""
 							],
@@ -874,7 +889,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "token 9c0a76e24619e3ac9cd10a00e013a9073a2a08d4",
+								"value": "token 06deda38dab3ece550c5ae4fb06c0df9a1ed0b33",
 								"type": "text"
 							}
 						],
@@ -888,12 +903,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseurl}}/item/location/",
+							"raw": "{{baseurl}}/v1/location/",
 							"host": [
 								"{{baseurl}}"
 							],
 							"path": [
-								"item",
+								"v1",
 								"location",
 								""
 							]
@@ -922,12 +937,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseurl}}/item/location/12/",
+							"raw": "{{baseurl}}/v1/location/12/",
 							"host": [
 								"{{baseurl}}"
 							],
 							"path": [
-								"item",
+								"v1",
 								"location",
 								"12",
 								""
@@ -948,14 +963,147 @@
 							}
 						],
 						"url": {
-							"raw": "{{baseurl}}/item/location/12/",
+							"raw": "{{baseurl}}/v1/location/12/",
 							"host": [
 								"{{baseurl}}"
 							],
 							"path": [
-								"item",
+								"v1",
 								"location",
 								"12",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "services",
+			"item": [
+				{
+					"name": "service-list",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "token 06deda38dab3ece550c5ae4fb06c0df9a1ed0b33",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseurl}}/v1/service/",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"v1",
+								"service",
+								""
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "service-create",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "token 06deda38dab3ece550c5ae4fb06c0df9a1ed0b33",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{baseurl}}/v1/service/",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"v1",
+								"service",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "schedule",
+			"item": [
+				{
+					"name": "schedule-list",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "token 06deda38dab3ece550c5ae4fb06c0df9a1ed0b33",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseurl}}/v1/schedule/",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"v1",
+								"schedule",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "schedule-create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "token 06deda38dab3ece550c5ae4fb06c0df9a1ed0b33",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"day_name\": \"Monday\",\n    \"start_schedule\": \"12:10:00\",\n    \"end_schedule\": \"02:10:00\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/v1/schedule/",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"v1",
+								"schedule",
 								""
 							]
 						}
