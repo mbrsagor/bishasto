@@ -37,6 +37,7 @@ class OrderItemCalculation(object):
 
         response = {
             'sub_total': calculate_sub_total,
+            'delivery_charge': _delivery_charge,
             'total': calculate_total_price
         }
         return response
@@ -71,6 +72,30 @@ class CreateOrderItemView(views.APIView):
             return Response(prepare_error_response(serializer.errors), status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
             return Response(prepare_error_response(str(e)), status=status.HTTP_400_BAD_REQUEST)
+
+
+class OrderItemDetailUpdateDeleteView(views.APIView):
+    permission_classes = (permissions.IsAdminUser,)
+
+    def get_object(self, pk):
+        try:
+            return OrderItem.objects.get(id=pk)
+        except OrderItem.DoesNotExist:
+            return None
+
+    def get(self, request, pk):
+        order_item = self.get_object(pk)
+        serializer = OrderItemSerializer(order_item)
+        if serializer is not None:
+            return Response(prepare_success_response(serializer.data), status=status.HTTP_200_OK)
+        return Response(prepare_error_response("Content Not found"), status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk):
+        order_item = self.get_object(pk)
+        if order_item is not None:
+            order_item.delete()
+            return Response(prepare_success_response("Data deleted successfully"), status=status.HTTP_200_OK)
+        return Response(prepare_error_response("Content Not found"), status=status.HTTP_400_BAD_REQUEST)
 
 
 class OrderItemFilterListView(generics.ListAPIView):
