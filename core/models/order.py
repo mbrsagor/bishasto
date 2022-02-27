@@ -31,14 +31,16 @@ class Order(BaseEntity):
 
 
 class OrderItem(BaseEntity):
-    orders = models.ManyToManyField(Order, related_name='orderItem')
+    customer = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL,
+                                 related_name='OrderItemCustomer')
+    orders = models.ManyToManyField(Order, related_name='orderItems')
     delivery_charge = models.IntegerField(default=0)
     address = models.TextField(default='')
     transition_id = models.CharField(max_length=90, blank=True, null=True, unique=True)
-    phone_number = models.TextField(max_length=60, blank=True, null=True)
+    phone_number = models.CharField(max_length=60)
     reference = models.CharField(max_length=200, blank=True, null=True)
     payment_type = models.IntegerField(choices=PAYMENT.payment_choices(), default=PAYMENT.CASH_ON_DELIVERY.value)
     status = models.IntegerField(choices=PROGRESS.order_status(), default=PROGRESS.PENDING.value)
 
     def __str__(self):
-        return self.delivery_charge
+        return self.phone_number

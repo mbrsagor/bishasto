@@ -2,8 +2,6 @@ from rest_framework import views, generics, status, permissions
 from django_filters import rest_framework as filters
 from rest_framework.response import Response
 from utils.enum import ROLE
-from django.core.mail import send_mail
-from django.conf import settings
 
 from core.models.order import Order
 from core.serializers.order_seralizer import OrderSerializer
