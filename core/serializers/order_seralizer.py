@@ -30,6 +30,7 @@ class OrderSerializer(serializers.ModelSerializer):
 class OrderItemSerializer(serializers.ModelSerializer):
 
     class Meta:
+        depth = 2
         model = OrderItem
         fields = '__all__'
         read_only_fields = ('customer',)
