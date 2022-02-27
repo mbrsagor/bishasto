@@ -28,8 +28,11 @@ class OrderItemCreateListAPIView(views.APIView):
 
             # price_str_to_float_convert = sum(float(sub) for sub in _price)
             price_convert_to_integer = [float(i) for i in _price]
-            print(price_convert_to_integer)
-            print(sum(_quantity))
-            return Response(prepare_success_response(serializer.data), status=status.HTTP_200_OK)
+            total_result = [num1 * num2 for num1, num2 in zip(price_convert_to_integer, _quantity)]
+            _response = {
+                'data': serializer.data,
+                'total_price': total_result
+            }
+            return Response(prepare_success_response(_response), status=status.HTTP_200_OK)
         except Exception as e:
             return Response(prepare_error_response(str(e)), status=status.HTTP_400_BAD_REQUEST)
