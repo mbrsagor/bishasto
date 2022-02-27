@@ -11,8 +11,35 @@ from utils.pagination import StandardResultsSetPagination
 from utils.response import prepare_success_response, prepare_create_success_response, prepare_error_response
 
 
-def price_calculation(serializer):
-    pass
+class OrderItemCalculation(object):
+
+    def __init__(self, serializer):
+        self.serializer = serializer
+
+    def calculation_price(self):
+        items = self.serializer
+        _price = []
+        _quantity = []
+        for item in items:
+            for order in item['orders']:
+                item_quantity = order['quantity']
+                _quantity.append(item_quantity)
+                item_price = order['item_name']['price']
+                _price.append(item_price)
+        # price_str_to_float_convert = sum(float(sub) for sub in _price)
+
+        # Calculations price
+        price_convert_to_integer = [float(i) for i in _price]
+        _delivery_charge = item['delivery_charge']
+        sub_total = [num1 * num2 for num1, num2 in zip(price_convert_to_integer, _quantity)]
+        calculate_sub_total = sum(sub_total)
+        calculate_total_price = calculate_sub_total + _delivery_charge
+
+        response = {
+            'sub_total': calculate_sub_total,
+            'total': calculate_total_price
+        }
+        return response
 
 
 class OrderItemCreateAPIView(views.APIView):
@@ -22,28 +49,10 @@ class OrderItemCreateAPIView(views.APIView):
         try:
             order_item = OrderItem.objects.filter(status=0, customer=self.request.user)
             serializer = OrderItemSerializer(order_item, many=True)
-
-            items = serializer.data
-            _price = []
-            _quantity = []
-            for item in items:
-                for order in item['orders']:
-                    item_quantity = order['quantity']
-                    _quantity.append(item_quantity)
-                    item_price = order['item_name']['price']
-                    _price.append(item_price)
-            # price_str_to_float_convert = sum(float(sub) for sub in _price)
-
-            # Calculations price
-            price_convert_to_integer = [float(i) for i in _price]
-            _delivery_charge = item['delivery_charge']
-            sub_total = [num1 * num2 for num1, num2 in zip(price_convert_to_integer, _quantity)]
-            calculate_sub_total = sum(sub_total)
-            calculate_total_price = calculate_sub_total + _delivery_charge
+            calculation_order = OrderItemCalculation(serializer.data)
             response = {
-                'data': serializer.data,
-                'sub_total': calculate_sub_total,
-                'total': calculate_total_price
+                'data': calculation_order.serializer,
+                'price_model': calculation_order.calculation_price()
             }
             return Response(prepare_success_response(response), status=status.HTTP_200_OK)
         except Exception as e:
@@ -75,27 +84,9 @@ class OrderItemFilterListView(generics.ListAPIView):
     def list(self, request, *args, **kwargs):
         order_item = OrderItem.objects.all()
         serializer = OrderItemSerializer(order_item, many=True)
-
-        items = serializer.data
-        _price = []
-        _quantity = []
-        for item in items:
-            for order in item['orders']:
-                item_quantity = order['quantity']
-                _quantity.append(item_quantity)
-                item_price = order['item_name']['price']
-                _price.append(item_price)
-        # price_str_to_float_convert = sum(float(sub) for sub in _price)
-
-        # Calculations price
-        price_convert_to_integer = [float(i) for i in _price]
-        _delivery_charge = item['delivery_charge']
-        sub_total = [num1 * num2 for num1, num2 in zip(price_convert_to_integer, _quantity)]
-        calculate_sub_total = sum(sub_total)
-        calculate_total_price = calculate_sub_total + _delivery_charge
+        calculation_order = OrderItemCalculation(serializer.data)
         response = {
-            'data': serializer.data,
-            'sub_total': calculate_sub_total,
-            'total': calculate_total_price
+            'data': calculation_order.serializer,
+            'price_model': calculation_order.calculation_price()
         }
         return Response(prepare_success_response(response), status=status.HTTP_200_OK)
