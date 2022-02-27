@@ -6,7 +6,7 @@ from django.core.mail import send_mail
 from django.conf import settings
 
 from core.models.order import Order
-from core.serializers.order_seralizer import OrderSerializer, OrderStatusUpdateSerializer
+from core.serializers.order_seralizer import OrderSerializer
 from utils.response import prepare_success_response, prepare_error_response, prepare_create_success_response
 from utils.pagination import StandardResultsSetPagination
 from utils.filters import OrderFilter
@@ -54,7 +54,7 @@ class OrderStatusUpdateDetailsAPIView(views.APIView):
         if request.user.role == ROLE.ADMIN or request.user.role == ROLE.MANAGER or request.user.role == ROLE.SHOPKEEPER:
             order = self.get_object(pk)
             if order is not None:
-                serializer = OrderStatusUpdateSerializer(order, data=request.data)
+                serializer = OrderSerializer(order, data=request.data)
                 if serializer.is_valid(raise_exception=True):
                     serializer.save(user=self.request.user)
                     return Response(prepare_create_success_response(serializer.data), status=status.HTTP_201_CREATED)
