@@ -33,3 +33,25 @@ class OrderItemSerializer(serializers.ModelSerializer):
         model = OrderItem
         fields = '__all__'
         read_only_fields = ('customer',)
+
+
+class CreateOrderItemSerializer(serializers.ModelSerializer):
+    orders = OrderSerializer(many=True, read_only=True).data
+
+    class Meta:
+        model = OrderItem
+        read_only_fields = ('customer',)
+        fields = [
+            'id',
+            'customer',
+            'orders',
+            'delivery_charge',
+            'address',
+            'transition_id',
+            'phone_number',
+            'reference',
+            'payment_type',
+            'status',
+            'created_at',
+            'updated_at'
+        ]

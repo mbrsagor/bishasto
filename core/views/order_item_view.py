@@ -4,7 +4,7 @@ from rest_framework import views, generics, status, permissions
 from rest_framework.response import Response
 
 from core.models.order import OrderItem
-from core.serializers.order_seralizer import OrderItemSerializer
+from core.serializers.order_seralizer import OrderItemSerializer, CreateOrderItemSerializer
 from utils.response import prepare_success_response, prepare_create_success_response, prepare_error_response
 
 
@@ -39,5 +39,19 @@ class OrderItemCreateAPIView(views.APIView):
                 'total': calculate_total_price
             }
             return Response(prepare_success_response(response), status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response(prepare_error_response(str(e)), status=status.HTTP_400_BAD_REQUEST)
+
+
+class CreateOrderItemView(views.APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request):
+        try:
+            serializer = CreateOrderItemSerializer(data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(prepare_create_success_response(serializer.data), status=status.HTTP_201_CREATED)
+            return Response(prepare_error_response(serializer.errors), status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
             return Response(prepare_error_response(str(e)), status=status.HTTP_400_BAD_REQUEST)

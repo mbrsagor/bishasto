@@ -7,7 +7,7 @@ from core.views.item_view import ItemAPIView, ItemUpdateDetailDeleteAPIView
 from core.views.location_view import LocationViewSet
 from core.views.shop_view import ShopProfileAPIView, ShopProfileUpdateDelete
 from core.views.order_view import OrderCreateListAPIView, OrderStatusUpdateDetailsAPIView, OrderFilterListView
-from core.views.order_item_view import OrderItemCreateAPIView
+from core.views.order_item_view import OrderItemCreateAPIView, CreateOrderItemView
 
 router = DefaultRouter()
 router.register('location', LocationViewSet)
@@ -29,5 +29,5 @@ urlpatterns = [
     path('order-filter/', OrderFilterListView.as_view(), name='order_filter'),
     # Order item
     path('order-item/', OrderItemCreateAPIView.as_view(), name='order_item'),
+    path('create-order/', CreateOrderItemView.as_view(), name='create_order'),
 ] + router.urls
-
