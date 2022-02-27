@@ -9,6 +9,7 @@ class Order(BaseEntity):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL, related_name='customer')
     item_name = models.ForeignKey(Item, on_delete=models.CASCADE, related_name='order_items')
     quantity = models.IntegerField(default=1)
+    is_complete = models.BooleanField(default=False)
 
     def __str__(self):
         return self.item_name.item_name

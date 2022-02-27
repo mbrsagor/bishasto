@@ -1,16 +1,27 @@
 from django_filters import rest_framework as filters
 
-from core.models.order import Order
+from core.models.order import Order, OrderItem
 from utils.enum import PROGRESS
 
 
 class OrderFilter(filters.FilterSet):
+    item_name = filters.ModelChoiceFilter(field_name='item_name', queryset=Order.objects.all())
+    is_complete = filters.BooleanFilter(field_name='is_complete')
+
+    class Meta:
+        model = Order
+        fields = [
+            'item_name', 'is_complete'
+        ]
+
+
+class OrderItemFilter(filters.FilterSet):
     phone_number = filters.CharFilter(field_name='phone_number')
     transition_id = filters.CharFilter(field_name='transition_id')
     status = filters.ChoiceFilter(field_name='status', choices=PROGRESS.order_status())
 
     class Meta:
-        model = Order
+        model = OrderItem
         fields = [
             'phone_number', 'transition_id', 'status'
         ]
