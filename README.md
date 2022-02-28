@@ -7,7 +7,7 @@
 ##### Dependencies
 
 - Python 3.8.5
-- Django==4.0.1
+- Django 4.0.1
 - postgres  12.5
 
 The following steps will walk you thru installation on a Mac. Linux should be similar. It's also possible to develop 

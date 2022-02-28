@@ -192,6 +192,7 @@ CORS_ALLOW_METHODS = [
 ]
 
 # SMTP Mail configuration
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST_USER = env('EMAIL_HOST_USER')
 EMAIL_HOST = env('EMAIL_HOST')
 EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
