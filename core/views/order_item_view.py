@@ -9,6 +9,7 @@ from core.serializers.order_seralizer import OrderItemSerializer, CreateOrderIte
 from utils.filters import OrderItemFilter
 from utils.pagination import StandardResultsSetPagination
 from utils.response import prepare_success_response, prepare_create_success_response, prepare_error_response
+from utils.enum import ROLE
 
 
 class OrderItemCalculation(object):
@@ -91,22 +92,28 @@ class OrderItemDetailUpdateDeleteView(views.APIView):
         return Response(prepare_error_response("Content Not found"), status=status.HTTP_400_BAD_REQUEST)
 
     def put(self, request, pk):
-        try:
-            order_item = self.get_object(pk)
-            serializer = OrderItemSerializer(order_item, data=request.data)
-            if serializer.is_valid(raise_exception=True):
-                serializer.save()
-                return Response(prepare_create_success_response(serializer.data), status=status.HTTP_201_CREATED)
-            return Response(prepare_error_response(serializer.errors), status=status.HTTP_400_BAD_REQUEST)
-        except Exception as e:
-            return Response(prepare_error_response(str(e)), status=status.HTTP_400_BAD_REQUEST)
+        if request.user.role == ROLE.ADMIN or request.user.role == ROLE.MANAGER or request.user.role == ROLE.SHOPKEEPER:
+            try:
+                order_item = self.get_object(pk)
+                serializer = OrderItemSerializer(order_item, data=request.data)
+                if serializer.is_valid(raise_exception=True):
+                    serializer.save()
+                    return Response(prepare_create_success_response(serializer.data), status=status.HTTP_201_CREATED)
+                return Response(prepare_error_response(serializer.errors), status=status.HTTP_400_BAD_REQUEST)
+            except Exception as e:
+                return Response(prepare_error_response(str(e)), status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response(prepare_error_response('You have no permission'), status=status.HTTP_401_UNAUTHORIZED)
 
     def delete(self, request, pk):
-        order_item = self.get_object(pk)
-        if order_item is not None:
-            order_item.delete()
-            return Response(prepare_success_response("Data deleted successfully"), status=status.HTTP_200_OK)
-        return Response(prepare_error_response("Content Not found"), status=status.HTTP_400_BAD_REQUEST)
+        if request.user.role == ROLE.ADMIN or request.user.role == ROLE.MANAGER or request.user.role == ROLE.SHOPKEEPER:
+            order_item = self.get_object(pk)
+            if order_item is not None:
+                order_item.delete()
+                return Response(prepare_success_response("Data deleted successfully"), status=status.HTTP_200_OK)
+            return Response(prepare_error_response("Content Not found"), status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response(prepare_error_response('You have no permission'), status=status.HTTP_401_UNAUTHORIZED)
 
 
 class OrderItemFilterListView(generics.ListAPIView):

@@ -27,7 +27,7 @@ class ItemAPIView(views.APIView):
                 return Response(prepare_create_success_response(serializer.data), status=status.HTTP_201_CREATED)
             return Response(prepare_error_response(serializer.errors), status=status.HTTP_400_BAD_REQUEST)
         else:
-            return Response(prepare_error_response('You have no permission'), status=status.HTTP_400_BAD_REQUEST)
+            return Response(prepare_error_response('You have no permission'), status=status.HTTP_401_UNAUTHORIZED)
 
 
 class ItemUpdateDetailDeleteAPIView(views.APIView):
@@ -54,7 +54,7 @@ class ItemUpdateDetailDeleteAPIView(views.APIView):
             else:
                 return Response(prepare_error_response("No data found for this ID"), status=status.HTTP_400_BAD_REQUEST)
         else:
-            return Response(prepare_error_response('You have no permission'), status=status.HTTP_400_BAD_REQUEST)
+            return Response(prepare_error_response('You have no permission'), status=status.HTTP_401_UNAUTHORIZED)
 
     def get(self, request, pk):
         item = self.get_object(pk)
@@ -71,4 +71,4 @@ class ItemUpdateDetailDeleteAPIView(views.APIView):
                 return Response(prepare_success_response("Data deleted successfully"), status=status.HTTP_200_OK)
             else:
                 return Response(prepare_error_response("Content Not found"), status=status.HTTP_400_BAD_REQUEST)
-        return Response(prepare_error_response('You have no permission'), status=status.HTTP_400_BAD_REQUEST)
+        return Response(prepare_error_response('You have no permission'), status=status.HTTP_401_UNAUTHORIZED)
