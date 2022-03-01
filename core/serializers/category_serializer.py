@@ -17,3 +17,8 @@ class CategorySerializer(serializers.ModelSerializer):
             'id', 'name', 'parent', 'is_active', 'image',
             'children_count', 'created_at', 'updated_at'
         )
+
+    def validate_name(self, value):
+        if len(value) <= 2:
+            raise serializers.ValidationError("Name should be more than 2 characters")
+        return value

@@ -42,6 +42,11 @@ class ItemSerializer(serializers.ModelSerializer):
             'created_at', 'updated_at', 'item_image', 'galley_image2', 'galley_image3'
         )
 
+    def validate_item_name(self, value):
+        if len(value) <= 3:
+            raise serializers.ValidationError("Item name should be more than 2 characters")
+        return value
+
     def to_representation(self, instance):
         response = super().to_representation(instance)
         response['item_category'] = CategorySerializer(instance.item_category).data
