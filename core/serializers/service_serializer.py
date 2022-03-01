@@ -34,3 +34,13 @@ class ServiceSerializer(serializers.ModelSerializer):
             'created_at',
             'updated_at',
         ]
+
+    def validate_service_name(self, value):
+        if len(value) <= 5:
+            raise serializers.ValidationError("Item name should be more than 5 characters")
+        return value
+
+    def to_representation(self, instance):
+        response = super().to_representation(instance)
+        response['service_schedule'] = ScheduleSerializer(instance.service_schedule).data
+        return response
