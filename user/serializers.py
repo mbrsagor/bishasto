@@ -35,7 +35,6 @@ class LoginSerializer(serializers.Serializer):
     def validate(self, data):
         phone_number = data.get('phone_number')
         password = data.get('password')
-        reg = False
         print(phone_number, ",", password)
         obj = User.objects.get(phone_number=phone_number)
         if phone_number and password:

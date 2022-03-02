@@ -273,6 +273,34 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "login_with_phn",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"phone_number\": \"01773474709\",\n    \"password\": \"dev@2022\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/user/login-phone/",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"user",
+								"login-phone",
+								""
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -317,7 +345,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"item_name\": 19,\n    \"reference\": \"Mbr Sagor Bhai\",\n    \"quantity\": 10,\n    \"payment_type\": 0,\n    \"transition_id\": \"383837\",\n    \"address\": \"Gaibandha, Sundorgonj, Dhormopur bazlar\",\n    \"phone_number\": \"01748880505\"\n}\n",
+							"raw": "{\n    \"item_name\": 20,\n    \"quantity\": 4\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -389,7 +417,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\": 25,\n    \"item_name\": 20,\n    \"status\": 3\n}",
+							"raw": "{\n    \"id\": 25,\n    \"item_name\": 20\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1104,6 +1132,70 @@
 							"path": [
 								"v1",
 								"schedule",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "order-item",
+			"item": [
+				{
+					"name": "add order item",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "token f5212d2ced52328d6755e6e6cb0fe8bd65e5fcf2",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"orders\": [25, 26],\n    \"reference\": \"Mbr Sagor Bhai\",\n    \"payment_type\": 0,\n    \"transition_id\": \"5431s\",\n    \"address\": \"Gaibandha, Sundorgonj, Dhormopur bazlar\",\n    \"phone_number\": \"01748880505\",\n    \"status\": 1,\n    \"delivery_charge\": 20\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/v1/create-order/",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"v1",
+								"create-order",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "order-item listview",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "token f5212d2ced52328d6755e6e6cb0fe8bd65e5fcf2",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseurl}}/v1/order-item/",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"v1",
+								"order-item",
 								""
 							]
 						}
