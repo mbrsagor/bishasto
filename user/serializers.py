@@ -1,4 +1,5 @@
-from rest_framework import serializers
+from django.contrib.auth import authenticate
+from rest_framework import serializers, exceptions
 from django.contrib.auth.password_validation import validate_password
 
 from .models import User, Profile
@@ -25,6 +26,30 @@ class UserCreateSerializer(serializers.ModelSerializer):
             password=validated_data['password']
         )
         return user
+
+
+class LoginSerializer(serializers.Serializer):
+    phone_number = serializers.CharField()
+    password = serializers.CharField()
+
+    def validate(self, data):
+        phone_number = data.get('phone_number')
+        password = data.get('password')
+        reg = False
+        print(phone_number, ",", password)
+        obj = User.objects.get(phone_number=phone_number)
+        if phone_number and password:
+            user = authenticate(username=obj.username, password=password)
+            if user:
+                data['user'] = user
+                print(user.id)
+            else:
+                msg = 'login failed'
+                raise exceptions.ValidationError(msg)
+        else:
+            msg = 'provide credientials'
+            raise exceptions.ValidationError(msg)
+        return data
 
 
 class UserSerializer(serializers.ModelSerializer):

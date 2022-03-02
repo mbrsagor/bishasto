@@ -5,7 +5,8 @@ from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 
 from .models import User, Profile
-from .serializers import UserCreateSerializer, UserSerializer, ProfileSerializer, PasswordChangeSerializer
+from .serializers import UserCreateSerializer, UserSerializer, ProfileSerializer, PasswordChangeSerializer, \
+    LoginSerializer
 from utils.response import prepare_create_success_response, prepare_error_response, prepare_success_response
 from utils.validation import password_validation
 
@@ -31,6 +32,7 @@ class LoginAPIView(ObtainAuthToken):
 
     def post(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data, context={'request': request})
+        # print(request.data)
         serializer.is_valid(raise_exception=True)
         token, created = Token.objects.get_or_create(user=serializer.validated_data['user'])
         user = serializer.validated_data['user']
@@ -39,6 +41,17 @@ class LoginAPIView(ObtainAuthToken):
             'user_id': user.pk,
             'message': 'The user has been login successfully'
         }, status=status.HTTP_200_OK)
+
+
+class LoginWithPhoneView(views.APIView):
+    permission_classes = [permissions.AllowAny, ]
+
+    def post(self, request):
+        serializer = LoginSerializer(data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response(prepare_success_response(serializer.data), status=status.HTTP_201_CREATED)
+        return Response(prepare_error_response(serializer.errors), status=status.HTTP_400_BAD_REQUEST)
 
 
 # User Profile API
