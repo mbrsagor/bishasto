@@ -8,6 +8,7 @@
 
 - Python 3.8.5
 - Django 4.0.1
+- Celery 5.2.3
 - postgres  12.5
 
 The following steps will walk you thru installation on a Mac. Linux should be similar. It's also possible to develop 
@@ -44,8 +45,15 @@ pip install -r requirements.txt
 ./manage.py makemigrations user
 ./manage.py migrate user
 ./manage.py migrate
+./ manage.py migrate django_celery_results
 ./manage.py createsuperuser
 ./mangae.py runserver
+```
+
+> Starting the worker process:
+```bash
+celery -A bishasto worker -l INFO
+celery --help
 ```
 
 ## Happy coding :wink:
