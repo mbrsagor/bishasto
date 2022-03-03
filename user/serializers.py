@@ -28,29 +28,6 @@ class UserCreateSerializer(serializers.ModelSerializer):
         return user
 
 
-class LoginSerializer(serializers.Serializer):
-    phone_number = serializers.CharField()
-    password = serializers.CharField()
-
-    def validate(self, data):
-        phone_number = data.get('phone_number')
-        password = data.get('password')
-        print(phone_number, ",", password)
-        obj = User.objects.get(phone_number=phone_number)
-        if phone_number and password:
-            user = authenticate(username=obj.username, password=password)
-            if user:
-                data['user'] = user
-                print(user.id)
-            else:
-                msg = 'login failed'
-                raise exceptions.ValidationError(msg)
-        else:
-            msg = 'provide credientials'
-            raise exceptions.ValidationError(msg)
-        return data
-
-
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
