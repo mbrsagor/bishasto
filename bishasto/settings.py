@@ -70,6 +70,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     # THIRD PARTY => cors-headers
     'corsheaders.middleware.CorsMiddleware',
+    # Custom middleware
+    'bishasto.middleware.dev_cors_middleware'
 ]
 
 ROOT_URLCONF = 'bishasto.urls'
@@ -175,22 +177,6 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 100
 }
-
-# Cors header
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
-    "http://127.0.0.1:8000",
-]
-
-# HTTP verbs that are allowed
-CORS_ALLOW_METHODS = [
-    "DELETE",
-    "GET",
-    "OPTIONS",
-    "PATCH",
-    "POST",
-    "PUT",
-]
 
 # SMTP Mail configuration
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
