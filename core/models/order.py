@@ -1,3 +1,4 @@
+import uuid
 from django.db import models
 from django.db.models.signals import pre_save
 from django.core.mail import send_mail
@@ -44,11 +45,21 @@ class OrderItem(BaseEntity):
     transition_id = models.CharField(max_length=90, blank=True, null=True, unique=True)
     phone_number = models.CharField(max_length=14)
     reference = models.CharField(max_length=200, blank=True, null=True)
+    order_ide = models.CharField(max_length=25, blank=True, null=True, unique=True)
     payment_type = models.IntegerField(choices=PAYMENT.payment_choices(), default=PAYMENT.CASH_ON_DELIVERY.value)
     status = models.IntegerField(choices=PROGRESS.order_status(), default=PROGRESS.PENDING.value)
 
     def __str__(self):
         return self.phone_number
+
+    def save(self, *args, **kwargs):
+        system_code = self.order_ide
+        if not system_code:
+            system_code = uuid.uuid4().hex[:6].upper()
+        while OrderItem.objects.filter(order_ide=system_code).exclude(pk=self.pk).exists():
+            system_code = uuid.uuid4().hex[:6].upper()
+        self.order_ide = system_code
+        super(OrderItem, self).save(*args, **kwargs)
 
     @receiver(pre_save, sender=Order)
     def active(sender, instance, **kwargs):
