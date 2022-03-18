@@ -1,13 +1,13 @@
 from rest_framework import views, generics, status, permissions
 from django_filters import rest_framework as filters
 from rest_framework.response import Response
-from utils.enum import ROLE
 
 from core.models.order import Order
 from core.serializers.order_seralizer import OrderSerializer
 from utils.response import prepare_success_response, prepare_error_response, prepare_create_success_response
 from utils.pagination import StandardResultsSetPagination
 from utils.filters import OrderFilter
+from utils.enum import ROLE
 
 
 class OrderCreateListAPIView(views.APIView):
