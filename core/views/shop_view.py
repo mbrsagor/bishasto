@@ -15,11 +15,14 @@ class ShopProfileAPIView(views.APIView):
         return Response(prepare_success_response(serializer.data), status=status.HTTP_200_OK)
 
     def post(self, request):
-        serializer = ShopSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save(owner=self.request.user)
-            return Response(prepare_success_response(serializer.data), status=status.HTTP_201_CREATED)
-        return Response(prepare_error_response(serializer.errors), status=status.HTTP_400_BAD_REQUEST)
+        try:
+            serializer = ShopSerializer(data=request.data)
+            if serializer.is_valid():
+                serializer.save(owner=self.request.user)
+                return Response(prepare_success_response(serializer.data), status=status.HTTP_201_CREATED)
+            return Response(prepare_error_response(serializer.errors), status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            return Response(prepare_error_response(str(e)), status=status.HTTP_404_NOT_FOUND)
 
 
 class ShopProfileUpdateDelete(views.APIView):

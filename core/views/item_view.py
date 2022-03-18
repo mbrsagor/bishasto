@@ -17,17 +17,20 @@ class ItemAPIView(views.APIView):
         return Response(prepare_success_response(serializer.data), status=status.HTTP_200_OK)
 
     def post(self, request):
-        if request.user.role == ROLE.ADMIN or request.user.role == ROLE.MANAGER or request.user.role == ROLE.SHOPKEEPER:
-            validate_error = validate_item_service(request.data)
-            if validate_error is not None:
-                return Response(prepare_error_response(validate_error), status=status.HTTP_400_BAD_REQUEST)
-            serializer = ItemSerializer(data=request.data)
-            if serializer.is_valid():
-                serializer.save(proprietor=self.request.user.shop_owner)
-                return Response(prepare_create_success_response(serializer.data), status=status.HTTP_201_CREATED)
-            return Response(prepare_error_response(serializer.errors), status=status.HTTP_400_BAD_REQUEST)
-        else:
-            return Response(prepare_error_response('You have no permission'), status=status.HTTP_401_UNAUTHORIZED)
+        try:
+            if request.user.role == ROLE.ADMIN or request.user.role == ROLE.MANAGER or request.user.role == ROLE.SHOPKEEPER:
+                validate_error = validate_item_service(request.data)
+                if validate_error is not None:
+                    return Response(prepare_error_response(validate_error), status=status.HTTP_400_BAD_REQUEST)
+                serializer = ItemSerializer(data=request.data)
+                if serializer.is_valid():
+                    serializer.save(proprietor=self.request.user.shop_owner)
+                    return Response(prepare_create_success_response(serializer.data), status=status.HTTP_201_CREATED)
+                return Response(prepare_error_response(serializer.errors), status=status.HTTP_400_BAD_REQUEST)
+            else:
+                return Response(prepare_error_response('You have no permission'), status=status.HTTP_401_UNAUTHORIZED)
+        except Exception as e:
+            return Response(prepare_error_response(str(e)), status=status.HTTP_400_BAD_REQUEST)
 
 
 class ItemUpdateDetailDeleteAPIView(views.APIView):

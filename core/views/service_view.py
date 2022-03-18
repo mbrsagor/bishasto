@@ -2,7 +2,6 @@ from rest_framework import viewsets, permissions
 
 from core.models.service import Service, Schedule
 from core.serializers.service_serializer import ServiceSerializer, ScheduleSerializer
-from utils.enum import ROLE
 
 
 class ServiceViewSet(viewsets.ModelViewSet):
@@ -21,10 +20,6 @@ class ServiceViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(proprietor=self.request.user.shop_owner)
-
-    # def create(self, request, *args, **kwargs):
-    #     if self.request.user.role in (ROLE.ADMIN, ROLE.MANAGER, ROLE.SHOPKEEPER):
-    #         pass
 
 
 class ScheduleViewSet(viewsets.ModelViewSet):

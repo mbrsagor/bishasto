@@ -36,6 +36,12 @@ cd bishasto
 |--> .env
 ```
 
+
+#### Open postgres using terminal database:
+```
+psql postgres 
+```
+
 Run the application in your local development server:
 
 ```bash
