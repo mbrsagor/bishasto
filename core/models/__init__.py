@@ -5,6 +5,7 @@ from core.models.shop import Shop
 from core.models.item import Item
 from core.models.order import Order
 from core.models.service import Service
+from core.models.preference import SiteSetting, Preference
 
 author__ = 'Sagor'
 
@@ -16,4 +17,6 @@ __all__ = [
     'Item',
     'Order',
     'Service',
+    'SiteSetting',
+    'Preference',
 ]
