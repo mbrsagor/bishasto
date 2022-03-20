@@ -9,7 +9,7 @@ from core.views.shop_view import ShopProfileAPIView, ShopProfileUpdateDelete
 from core.views.order_view import OrderCreateListAPIView, OrderStatusUpdateDetailsAPIView, OrderFilterListView
 from core.views.order_item_view import OrderItemCreateAPIView, CreateOrderItemView, OrderItemFilterListView, \
     OrderItemDetailUpdateDeleteView
-from core.views.preference_view import SiteSettingCreateListView, PreferenceCreateListView
+from core.views.preference_view import SiteSettingCreateListView, PreferenceUpdateView
 
 router = DefaultRouter()
 router.register('location', LocationViewSet)
@@ -35,6 +35,7 @@ urlpatterns = [
     path('orderitem/<pk>/', OrderItemDetailUpdateDeleteView.as_view(), name='orderItem_update_detail_delete'),
     path('orderitem-filter/', OrderItemFilterListView.as_view(), name='orderItem_filter'),
     path('site/', SiteSettingCreateListView.as_view(), name='site_create_list'),
+    # preference
     path('site/', SiteSettingCreateListView.as_view(), name='site_create_list'),
-    path('update-preference/', PreferenceCreateListView.as_view(), name='update_preference'),
+    path('preference/<pk>/', PreferenceUpdateView.as_view(), name='update_preference'),
 ] + router.urls
