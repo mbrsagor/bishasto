@@ -6,8 +6,7 @@
 
 ##### Dependencies
 
-- Python 3.8.5
-- Django 4.0.1
+- Python 3.8
 - Celery 5.2.3
 - postgres  12.5
 

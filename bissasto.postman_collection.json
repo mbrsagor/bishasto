@@ -21,7 +21,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"username\": \"dev\",\n    \"password\": \"dev@2022\"\n}\n",
+							"raw": "{\n    \"username\": \"01773474709\",\n    \"password\": \"dev@2022\"\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1156,7 +1156,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"orders\": [25, 26],\n    \"reference\": \"Mbr Sagor Bhai\",\n    \"payment_type\": 0,\n    \"transition_id\": \"5431s\",\n    \"address\": \"Gaibandha, Sundorgonj, Dhormopur bazlar\",\n    \"phone_number\": \"01748880505\",\n    \"status\": 1,\n    \"delivery_charge\": 20\n}\n",
+							"raw": "{\n    \"orders\": [25, 26],\n    \"reference\": \"Mbr Sagor Bhai\",\n    \"payment_type\": 1,\n    \"transition_id\": \"676767\",\n    \"address\": \"Gaibandha, Sundorgonj, Dhormopur bazlar\",\n    \"phone_number\": \"01748880505\",\n    \"status\": 1,\n    \"delivery_charge\": 20\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1196,6 +1196,71 @@
 							"path": [
 								"v1",
 								"order-item",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "preference",
+			"item": [
+				{
+					"name": "site",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "token 06deda38dab3ece550c5ae4fb06c0df9a1ed0b33",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseurl}}/v1/site/",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"v1",
+								"site",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "site-settings",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "token 06deda38dab3ece550c5ae4fb06c0df9a1ed0b33",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 34,\n    \"site_name\": \"Welcome to your webiset\",\n    \"copyright\": \"©Copyright 2022 | bishasto All Rights Reserved develop by mbrsagor\",\n    \"logo\": null,\n    \"footer_logo\": null,\n    \"favicon\": null\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/v1/preference/34/",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"v1",
+								"preference",
+								"34",
 								""
 							]
 						}
