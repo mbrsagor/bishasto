@@ -1,5 +1,5 @@
 # Bishasto
-> The application is basically online service backend web application.
+> The application is basically online service backend web application like multi vendor online service platform. Vendor will sell services or products and customer will taking the services or products.
 
 
 #### Setup
