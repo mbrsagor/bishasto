@@ -21,6 +21,16 @@ def xsum(numbers):
 def count_items():
     return Item.objects.count()
 
+@shared_task
+def mod(self, x, y):
+    try:
+        z = x % y
+        print(f'{x} % {y} = {x%y}')
+        return z
+    except :
+        mod.retry()
+        print(f'Error with mod')
+
 
 @shared_task
 def rename_item(item_id, item_name):
