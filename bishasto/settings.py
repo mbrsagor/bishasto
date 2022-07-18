@@ -198,3 +198,9 @@ CACHES = {
         'LOCATION': 'my_cache_table',
     }
 }
+
+
+# Allow upload big file
+DATA_UPLOAD_MAX_MEMORY_SIZE = 1024 * 1024 * 15  # 15M
+FILE_UPLOAD_MAX_MEMORY_SIZE = DATA_UPLOAD_MAX_MEMORY_SIZE
+
