@@ -1,4 +1,5 @@
 from django.db import models
+
 from core.models.base import BaseEntity
 from core.models.category import Category, Tag
 from core.models.shop import Shop
@@ -8,7 +9,7 @@ from utils.enum import TYPES
 class Item(BaseEntity):
     item_name = models.CharField(max_length=120)
     proprietor = models.ForeignKey(Shop, on_delete=models.CASCADE, related_name='item_shop')
-    item_category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='item_category')
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='item_category')
     tags = models.ManyToManyField(Tag, related_name='item_tag')
     is_available = models.BooleanField(default=True)
     price = models.DecimalField(max_digits=20, decimal_places=10)

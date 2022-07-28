@@ -11,7 +11,7 @@ class OrderSerializer(serializers.ModelSerializer):
         fields = [
             'id',
             'user',
-            'item_name',
+            'item',
             'is_complete',
             'quantity',
             'shop_name',
@@ -24,7 +24,7 @@ class OrderSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         response = super().to_representation(instance)
-        response['item_name'] = ItemSerializer(instance.item_name).data
+        response['item'] = ItemSerializer(instance.item_name).data
         return response
 
 

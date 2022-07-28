@@ -12,28 +12,28 @@ from utils.enum import PROGRESS, PAYMENT
 
 class Order(BaseEntity):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL, related_name='customer')
-    item_name = models.ForeignKey(Item, on_delete=models.CASCADE, related_name='order_items')
+    item = models.ForeignKey(Item, on_delete=models.CASCADE, related_name='order_items')
     quantity = models.IntegerField(default=1)
     is_complete = models.BooleanField(default=True)
 
     def __str__(self):
-        return self.item_name.item_name
+        return self.item.item_name
 
     @property
     def total_price(self):
-        return self.item_name.price * self.quantity
+        return self.item.price * self.quantity
 
     @property
     def owner_price(self):
-        return self.total_price - self.item_name.commission
+        return self.total_price - self.item.commission
 
     @property
     def commission_price(self):
-        return self.item_name.commission
+        return self.item.commission
 
     @property
     def shop_name(self):
-        return self.item_name.proprietor.shop_name
+        return self.item.proprietor.shop_name
 
 
 class OrderItem(BaseEntity):

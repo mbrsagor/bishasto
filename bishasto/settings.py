@@ -21,7 +21,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 env = environ.Env(
     DEBUG=(bool, False),
-    ALLOWED_HOSTS=(list)
+    ALLOWED_HOSTS=list
 )
 env_path = os.path.join(BASE_DIR, '.env')
 environ.Env.read_env(env_path)
@@ -199,8 +199,6 @@ CACHES = {
     }
 }
 
-
 # Allow upload big file
 DATA_UPLOAD_MAX_MEMORY_SIZE = 1024 * 1024 * 15  # 15M
 FILE_UPLOAD_MAX_MEMORY_SIZE = DATA_UPLOAD_MAX_MEMORY_SIZE
-

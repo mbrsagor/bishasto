@@ -37,7 +37,7 @@ class ItemSerializer(serializers.ModelSerializer):
         model = Item
         read_only_fields = ('proprietor',)
         fields = (
-            'id', 'item_name', 'item_category', 'tags', 'is_available', 'price', 'proprietor',
+            'id', 'item_name', 'category', 'tags', 'is_available', 'price', 'proprietor',
             'discount_price', 'commission', 'short_description', 'model', 'item_type',
             'created_at', 'updated_at', 'item_image', 'galley_image2', 'galley_image3'
         )
