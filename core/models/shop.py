@@ -1,15 +1,15 @@
 from datetime import date, datetime
 from django.db import models
-from django.conf import settings
 
 from core.models.base import BaseEntity
 from core.models.location import Location
+from user.models import User
 
 
 class Shop(BaseEntity):
     shop_name = models.CharField(max_length=120, unique=True)
     phone_number = models.CharField(max_length=14, blank=True, null=True)
-    owner = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='shop_owner')
+    owner = models.OneToOneField(User, on_delete=models.CASCADE, related_name='shop_owner')
     shop_location = models.ForeignKey(Location, on_delete=models.CASCADE, related_name='location')
     is_available = models.BooleanField(default=True)
     tread_license = models.TextField()

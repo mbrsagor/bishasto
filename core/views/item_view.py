@@ -3,9 +3,10 @@ from rest_framework.response import Response
 from utils.enum import ROLE
 
 from core.models.item import Item
-from core.serializers.item_serializer import ItemSerializer
-from utils.response import prepare_success_response, prepare_error_response, prepare_create_success_response
 from utils.validation import validate_item_service
+from core.serializers.item_serializer import ItemSerializer
+from utils.message import PERMISSION, NOTFOUND, DELETED, NO_CONTENT
+from utils.response import prepare_success_response, prepare_error_response, prepare_create_success_response
 
 
 class ItemAPIView(views.APIView):
@@ -28,7 +29,7 @@ class ItemAPIView(views.APIView):
                     return Response(prepare_create_success_response(serializer.data), status=status.HTTP_201_CREATED)
                 return Response(prepare_error_response(serializer.errors), status=status.HTTP_400_BAD_REQUEST)
             else:
-                return Response(prepare_error_response('You have no permission'), status=status.HTTP_401_UNAUTHORIZED)
+                return Response(prepare_error_response(PERMISSION), status=status.HTTP_401_UNAUTHORIZED)
         except Exception as e:
             return Response(prepare_error_response(str(e)), status=status.HTTP_400_BAD_REQUEST)
 
@@ -55,23 +56,23 @@ class ItemUpdateDetailDeleteAPIView(views.APIView):
                     return Response(prepare_create_success_response(serializer.data), status=status.HTTP_201_CREATED)
                 return Response(prepare_error_response(serializer.errors), status=status.HTTP_400_BAD_REQUEST)
             else:
-                return Response(prepare_error_response("No data found for this ID"), status=status.HTTP_400_BAD_REQUEST)
+                return Response(prepare_error_response(NOTFOUND), status=status.HTTP_400_BAD_REQUEST)
         else:
-            return Response(prepare_error_response('You have no permission'), status=status.HTTP_401_UNAUTHORIZED)
+            return Response(prepare_error_response(PERMISSION), status=status.HTTP_401_UNAUTHORIZED)
 
     def get(self, request, pk):
         item = self.get_object(pk)
         serializer = ItemSerializer(item)
         if serializer is not None:
             return Response(prepare_success_response(serializer.data), status=status.HTTP_200_OK)
-        return Response(prepare_error_response("Content Not found"), status=status.HTTP_400_BAD_REQUEST)
+        return Response(prepare_error_response(NO_CONTENT), status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, pk):
         if request.user.role == ROLE.ADMIN or request.user.role == ROLE.MANAGER or request.user.role == ROLE.SHOPKEEPER:
             item = self.get_object(pk)
             if item is not None:
                 item.delete()
-                return Response(prepare_success_response("Data deleted successfully"), status=status.HTTP_200_OK)
+                return Response(prepare_success_response(DELETED), status=status.HTTP_200_OK)
             else:
-                return Response(prepare_error_response("Content Not found"), status=status.HTTP_400_BAD_REQUEST)
-        return Response(prepare_error_response('You have no permission'), status=status.HTTP_401_UNAUTHORIZED)
+                return Response(prepare_error_response(NO_CONTENT), status=status.HTTP_400_BAD_REQUEST)
+        return Response(prepare_error_response(PERMISSION), status=status.HTTP_401_UNAUTHORIZED)
