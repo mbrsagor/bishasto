@@ -13,9 +13,28 @@ class ItemAPIView(views.APIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request):
+        all_items = []
         item = Item.objects.all()
         serializer = ItemSerializer(item, many=True)
-        return Response(prepare_success_response(serializer.data), status=status.HTTP_200_OK)
+        items = serializer.data
+        for date in items:
+            res = {
+                'id': date['id'],
+                'item_name': date['item_name'],
+                'category': date['category']['name'],
+                'price': date['price'],
+                'discount_price': date['discount_price'],
+                'model': date['model'],
+                'is_available': date['is_available'],
+                'tags': date['tags'],
+                'item_type': date['item_type'],
+                'item_image': date['item_image'],
+                'galley_image2': date['galley_image2'],
+                'galley_image3': date['galley_image3'],
+                'short_description': date['short_description'],
+            }
+            all_items.append(res)
+        return Response(prepare_success_response(all_items), status=status.HTTP_200_OK)
 
     def post(self, request):
         try:
