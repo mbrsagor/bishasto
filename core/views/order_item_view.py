@@ -4,12 +4,13 @@ from rest_framework import views, generics, status, permissions
 from rest_framework.response import Response
 from django_filters import rest_framework as filters
 
-from core.models.order import OrderItem
-from core.serializers.order_seralizer import OrderItemSerializer, CreateOrderItemSerializer
-from utils.filters import OrderItemFilter
-from utils.pagination import StandardResultsSetPagination
-from utils.response import prepare_success_response, prepare_create_success_response, prepare_error_response
 from utils.enum import ROLE
+from core.models.order import OrderItem
+from utils.filters import OrderItemFilter
+from core.serializers import order_seralizer
+from utils.pagination import StandardResultsSetPagination
+from utils.message import PERMISSION, NOTFOUND, DELETED, NO_CONTENT
+from utils.response import prepare_success_response, prepare_create_success_response, prepare_error_response
 
 
 class OrderItemCalculation(object):
@@ -50,7 +51,7 @@ class OrderItemCreateAPIView(views.APIView):
     def get(self, request):
         try:
             order_item = OrderItem.objects.filter(status=0, customer=self.request.user)
-            serializer = OrderItemSerializer(order_item, many=True)
+            serializer = order_seralizer.OrderItemSerializer(order_item, many=True)
             calculation_order = OrderItemCalculation(serializer.data)
             response = {
                 'data': calculation_order.serializer,
@@ -66,7 +67,7 @@ class CreateOrderItemView(views.APIView):
 
     def post(self, request):
         try:
-            serializer = CreateOrderItemSerializer(data=request.data)
+            serializer = order_seralizer.CreateOrderItemSerializer(data=request.data)
             if serializer.is_valid():
                 serializer.save()
                 return Response(prepare_create_success_response(serializer.data), status=status.HTTP_201_CREATED)
@@ -86,16 +87,16 @@ class OrderItemDetailUpdateDeleteView(views.APIView):
 
     def get(self, request, pk):
         order_item = self.get_object(pk)
-        serializer = OrderItemSerializer(order_item)
+        serializer = order_seralizer.OrderItemSerializer(order_item)
         if serializer is not None:
             return Response(prepare_success_response(serializer.data), status=status.HTTP_200_OK)
-        return Response(prepare_error_response("Content Not found"), status=status.HTTP_400_BAD_REQUEST)
+        return Response(prepare_error_response(NO_CONTENT), status=status.HTTP_400_BAD_REQUEST)
 
     def put(self, request, pk):
         if request.user.role == ROLE.ADMIN or request.user.role == ROLE.MANAGER or request.user.role == ROLE.SHOPKEEPER:
             try:
                 order_item = self.get_object(pk)
-                serializer = OrderItemSerializer(order_item, data=request.data)
+                serializer = order_seralizer.OrderItemSerializer(order_item, data=request.data)
                 if serializer.is_valid(raise_exception=True):
                     serializer.save()
                     return Response(prepare_create_success_response(serializer.data), status=status.HTTP_201_CREATED)
@@ -103,7 +104,7 @@ class OrderItemDetailUpdateDeleteView(views.APIView):
             except Exception as e:
                 return Response(prepare_error_response(str(e)), status=status.HTTP_400_BAD_REQUEST)
         else:
-            return Response(prepare_error_response('You have no permission'), status=status.HTTP_401_UNAUTHORIZED)
+            return Response(prepare_error_response(PERMISSION), status=status.HTTP_401_UNAUTHORIZED)
 
     def delete(self, request, pk):
         if request.user.role == ROLE.ADMIN or request.user.role == ROLE.MANAGER or request.user.role == ROLE.SHOPKEEPER:
@@ -111,14 +112,14 @@ class OrderItemDetailUpdateDeleteView(views.APIView):
             if order_item is not None:
                 order_item.delete()
                 return Response(prepare_success_response("Data deleted successfully"), status=status.HTTP_200_OK)
-            return Response(prepare_error_response("Content Not found"), status=status.HTTP_400_BAD_REQUEST)
+            return Response(prepare_error_response(NOTFOUND), status=status.HTTP_400_BAD_REQUEST)
         else:
-            return Response(prepare_error_response('You have no permission'), status=status.HTTP_401_UNAUTHORIZED)
+            return Response(prepare_error_response(PERMISSION), status=status.HTTP_401_UNAUTHORIZED)
 
 
 class OrderItemFilterListView(generics.ListAPIView):
     queryset = OrderItem.objects.all()
-    serializer_class = OrderItemSerializer
+    serializer_class = order_seralizer.OrderItemSerializer
     permission_classes = (permissions.IsAdminUser,)
     pagination_class = StandardResultsSetPagination
     filter_backends = (filters.DjangoFilterBackend,)
@@ -126,7 +127,7 @@ class OrderItemFilterListView(generics.ListAPIView):
 
     def list(self, request, *args, **kwargs):
         order_item = OrderItem.objects.all()
-        serializer = OrderItemSerializer(order_item, many=True)
+        serializer = order_seralizer.OrderItemSerializer(order_item, many=True)
         calculation_order = OrderItemCalculation(serializer.data)
         response = {
             'data': calculation_order.serializer,

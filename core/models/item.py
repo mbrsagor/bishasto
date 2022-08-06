@@ -25,3 +25,6 @@ class Item(BaseEntity):
 
     def __str__(self):
         return self.item_name[:50]
+
+    def commission_price(self):
+        return self.discount_price - self.discount_price
