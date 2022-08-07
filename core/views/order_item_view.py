@@ -9,7 +9,7 @@ from core.models.order import OrderItem
 from utils.filters import OrderItemFilter
 from core.serializers import order_seralizer
 from utils.pagination import StandardResultsSetPagination
-from utils.message import PERMISSION, NOTFOUND, DELETED, NO_CONTENT
+from utils.message import PERMISSION, NOTFOUND, NO_CONTENT
 from utils.response import prepare_success_response, prepare_create_success_response, prepare_error_response
 
 

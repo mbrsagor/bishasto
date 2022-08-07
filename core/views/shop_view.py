@@ -2,6 +2,7 @@ from rest_framework import views, status, permissions
 from rest_framework.response import Response
 
 from core.models.shop import Shop
+from utils.message import NOTFOUND, DELETED
 from core.serializers.shop_serializer import ShopSerializer
 from utils.response import prepare_success_response, prepare_error_response
 
@@ -46,6 +47,6 @@ class ShopProfileUpdateDelete(views.APIView):
         shop = self.get_object(pk)
         if shop is not None:
             shop.delete()
-            return Response(prepare_success_response("Data deleted successfully"), status=status.HTTP_200_OK)
+            return Response(prepare_success_response(DELETED), status=status.HTTP_200_OK)
         else:
-            return Response(prepare_error_response("Content Not found"), status=status.HTTP_400_BAD_REQUEST)
+            return Response(prepare_error_response(NOTFOUND), status=status.HTTP_400_BAD_REQUEST)

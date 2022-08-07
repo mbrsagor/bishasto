@@ -2,12 +2,13 @@ from rest_framework import views, generics, status, permissions
 from django_filters import rest_framework as filters
 from rest_framework.response import Response
 
-from core.models.order import Order
-from core.serializers.order_seralizer import OrderSerializer
-from utils.response import prepare_success_response, prepare_error_response, prepare_create_success_response
-from utils.pagination import StandardResultsSetPagination
-from utils.filters import OrderFilter
 from utils.enum import ROLE
+from core.models.order import Order
+from utils.filters import OrderFilter
+from core.serializers.order_seralizer import OrderSerializer
+from utils.pagination import StandardResultsSetPagination
+from utils.message import PERMISSION, NOTFOUND, NO_CONTENT
+from utils.response import prepare_success_response, prepare_error_response, prepare_create_success_response
 
 
 class OrderCreateListAPIView(views.APIView):
@@ -22,7 +23,7 @@ class OrderCreateListAPIView(views.APIView):
             serializer = OrderSerializer(order, many=True)
             return Response(prepare_success_response(serializer.data), status=status.HTTP_200_OK)
         else:
-            return Response(prepare_error_response("Content Not found"), status=status.HTTP_400_BAD_REQUEST)
+            return Response(prepare_error_response(NO_CONTENT), status=status.HTTP_400_BAD_REQUEST)
 
     def post(self, request):
         try:
@@ -49,7 +50,7 @@ class OrderStatusUpdateDetailsAPIView(views.APIView):
         serializer = OrderSerializer(order)
         if serializer is not None:
             return Response(prepare_success_response(serializer.data), status=status.HTTP_200_OK)
-        return Response(prepare_error_response("Content Not found"), status=status.HTTP_400_BAD_REQUEST)
+        return Response(prepare_error_response(NO_CONTENT), status=status.HTTP_400_BAD_REQUEST)
 
     def put(self, request, pk):
         try:
@@ -63,10 +64,10 @@ class OrderStatusUpdateDetailsAPIView(views.APIView):
                                         status=status.HTTP_201_CREATED)
                     return Response(prepare_error_response(serializer.errors), status=status.HTTP_400_BAD_REQUEST)
                 else:
-                    return Response(prepare_error_response("No data found for this ID"),
+                    return Response(prepare_error_response(NOTFOUND),
                                     status=status.HTTP_400_BAD_REQUEST)
             else:
-                return Response(prepare_error_response('You have no permission'), status=status.HTTP_400_BAD_REQUEST)
+                return Response(prepare_error_response(PERMISSION), status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
             return Response(prepare_error_response(str(e)), status=status.HTTP_404_NOT_FOUND)
 
