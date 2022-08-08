@@ -5,7 +5,7 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
 # working directory
-WORKDIR /app
+WORKDIR /usr/src/app
 
 ##copy requirements
 COPY requirements.txt /tmp/requirements.txt
