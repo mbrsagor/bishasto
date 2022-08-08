@@ -23,6 +23,14 @@ class ROLE(IntEnum):
         return [(key.value, key.name) for key in cls]
 
 
+# Add role permission
+allow_access_admin = ROLE.Admin.value
+allow_access_manager = ROLE.MANAGER.value
+allow_shopkeeper = ROLE.SHOPKEEPER.value
+allow_customer = ROLE.CUSTOMER.value
+allow_delivery_man = ROLE.DELIVERY_MAN.value
+
+
 class LOCATIONCHOICES(IntEnum):
     COUNTRY = 0
     CITY = 1

@@ -1,15 +1,21 @@
 from rest_framework import views, status, permissions
 from rest_framework.response import Response
-from utils.enum import ROLE
 
 from core.models.item import Item
 from utils.validation import validate_item_service
 from core.serializers.item_serializer import ItemSerializer
 from utils.message import PERMISSION, NOTFOUND, DELETED, NO_CONTENT
+from utils.enum import allow_access_admin, allow_access_manager, allow_shopkeeper
 from utils.response import prepare_success_response, prepare_error_response, prepare_create_success_response
 
 
 class ItemAPIView(views.APIView):
+    """
+    Name: Item/project create list API endpoint.
+    Description: The API endpoint shopkeeper or admin, manager will only add projects/items.
+    Method: get/post
+    Endpoint: /api/v1/item.
+    """
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request):
@@ -37,8 +43,9 @@ class ItemAPIView(views.APIView):
         return Response(prepare_success_response(all_items), status=status.HTTP_200_OK)
 
     def post(self, request):
+        access = self.request.user.role
         try:
-            if request.user.role == ROLE.ADMIN or request.user.role == ROLE.MANAGER or request.user.role == ROLE.SHOPKEEPER:
+            if access == allow_access_admin or access == allow_access_manager or access == allow_shopkeeper:
                 validate_error = validate_item_service(request.data)
                 if validate_error is not None:
                     return Response(prepare_error_response(validate_error), status=status.HTTP_400_BAD_REQUEST)
@@ -63,7 +70,8 @@ class ItemUpdateDetailDeleteAPIView(views.APIView):
             return None
 
     def put(self, request, pk):
-        if request.user.role == ROLE.ADMIN or request.user.role == ROLE.MANAGER or request.user.role == ROLE.SHOPKEEPER:
+        access = self.request.user.role
+        if access == allow_access_admin or access == allow_access_manager or access == allow_shopkeeper:
             validate_error = validate_item_service(request.data)
             if validate_error is not None:
                 return Response(prepare_error_response(validate_error), status=status.HTTP_400_BAD_REQUEST)
@@ -87,11 +95,15 @@ class ItemUpdateDetailDeleteAPIView(views.APIView):
         return Response(prepare_error_response(NO_CONTENT), status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, pk):
-        if request.user.role == ROLE.ADMIN or request.user.role == ROLE.MANAGER or request.user.role == ROLE.SHOPKEEPER:
-            item = self.get_object(pk)
-            if item is not None:
-                item.delete()
-                return Response(prepare_success_response(DELETED), status=status.HTTP_200_OK)
-            else:
-                return Response(prepare_error_response(NO_CONTENT), status=status.HTTP_400_BAD_REQUEST)
+        access = self.request.user.role
+        if access == allow_access_admin or access == allow_access_manager or access == allow_shopkeeper:
+            try:
+                item = self.get_object(pk)
+                if item is not None:
+                    item.delete()
+                    return Response(prepare_success_response(DELETED), status=status.HTTP_200_OK)
+                else:
+                    return Response(prepare_error_response(NO_CONTENT), status=status.HTTP_400_BAD_REQUEST)
+            except Exception as ex:
+                return Response(prepare_error_response(str(ex)), status=status.HTTP_404_NOT_FOUND)
         return Response(prepare_error_response(PERMISSION), status=status.HTTP_401_UNAUTHORIZED)
