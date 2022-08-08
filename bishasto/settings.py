@@ -71,7 +71,7 @@ MIDDLEWARE = [
     # THIRD PARTY => cors-headers
     'corsheaders.middleware.CorsMiddleware',
     # Custom middleware
-    'bishasto.middleware.dev_cors_middleware'
+    'bishasto.middleware.CustomMiddleware'
 ]
 
 ROOT_URLCONF = 'bishasto.urls'
