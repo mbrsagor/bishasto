@@ -1,11 +1,11 @@
 from rest_framework import views, status, permissions
 from rest_framework.response import Response
 
+from utils.enum import ROLE
 from core.models.item import Item
 from utils.validation import validate_item_service
 from core.serializers.item_serializer import ItemSerializer
 from utils.message import PERMISSION, NOTFOUND, DELETED, NO_CONTENT
-from utils.enum import allow_access_admin, allow_access_manager, allow_shopkeeper
 from utils.response import prepare_success_response, prepare_error_response, prepare_create_success_response
 
 
@@ -43,9 +43,8 @@ class ItemAPIView(views.APIView):
         return Response(prepare_success_response(all_items), status=status.HTTP_200_OK)
 
     def post(self, request):
-        access = self.request.user.role
         try:
-            if access == allow_access_admin or access == allow_access_manager or access == allow_shopkeeper:
+            if request.user.role == ROLE.ADMIN or request.user.role == ROLE.MANAGER or request.user.role == ROLE.SHOPKEEPER:
                 validate_error = validate_item_service(request.data)
                 if validate_error is not None:
                     return Response(prepare_error_response(validate_error), status=status.HTTP_400_BAD_REQUEST)
@@ -70,8 +69,7 @@ class ItemUpdateDetailDeleteAPIView(views.APIView):
             return None
 
     def put(self, request, pk):
-        access = self.request.user.role
-        if access == allow_access_admin or access == allow_access_manager or access == allow_shopkeeper:
+        if request.user.role == ROLE.ADMIN or request.user.role == ROLE.MANAGER or request.user.role == ROLE.SHOPKEEPER:
             validate_error = validate_item_service(request.data)
             if validate_error is not None:
                 return Response(prepare_error_response(validate_error), status=status.HTTP_400_BAD_REQUEST)
@@ -95,8 +93,7 @@ class ItemUpdateDetailDeleteAPIView(views.APIView):
         return Response(prepare_error_response(NO_CONTENT), status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, pk):
-        access = self.request.user.role
-        if access == allow_access_admin or access == allow_access_manager or access == allow_shopkeeper:
+        if request.user.role == ROLE.ADMIN or request.user.role == ROLE.MANAGER or request.user.role == ROLE.SHOPKEEPER:
             try:
                 item = self.get_object(pk)
                 if item is not None:
