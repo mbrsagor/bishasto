@@ -11,36 +11,36 @@ from utils.response import prepare_success_response, prepare_error_response, pre
 
 class ItemAPIView(views.APIView):
     """
-    Name: Item/project create list API endpoint.
+    Name: Item/product create list API endpoint.
     Description: The API endpoint shopkeeper or admin, manager will only add projects/items.
     Method: get/post
-    Endpoint: /api/v1/item.
+    Endpoint: /api/v1/item/
     """
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request):
-        all_items = []
+        data = []
         item = Item.objects.all()
         serializer = ItemSerializer(item, many=True)
-        items = serializer.data
-        for date in items:
+        products = serializer.data
+        for product in products:
             res = {
-                'id': date['id'],
-                'item_name': date['item_name'],
-                'category': date['category']['name'],
-                'price': date['price'],
-                'discount_price': date['discount_price'],
-                'model': date['model'],
-                'is_available': date['is_available'],
-                'tags': date['tags'],
-                'item_type': date['item_type'],
-                'item_image': date['item_image'],
-                'galley_image2': date['galley_image2'],
-                'galley_image3': date['galley_image3'],
-                'short_description': date['short_description'],
+                'id': product['id'],
+                'item_name': product['item_name'],
+                'category': product['category']['name'],
+                'price': product['price'],
+                'discount_price': product['discount_price'],
+                'model': product['model'],
+                'is_available': product['is_available'],
+                'tags': product['tags'],
+                'item_type': product['item_type'],
+                'item_image': product['item_image'],
+                'galley_image2': product['galley_image2'],
+                'galley_image3': product['galley_image3'],
+                'short_description': product['short_description'],
             }
-            all_items.append(res)
-        return Response(prepare_success_response(all_items), status=status.HTTP_200_OK)
+            data.append(res)
+        return Response(prepare_success_response(data), status=status.HTTP_200_OK)
 
     def post(self, request):
         try:
@@ -60,6 +60,15 @@ class ItemAPIView(views.APIView):
 
 
 class ItemUpdateDetailDeleteAPIView(views.APIView):
+    """
+       Name: Item/product `update` `details`, and `delete` API endpoint.
+       Description: The API endpoint shopkeeper or admin, manager will only add projects/items.
+       Method: get/post
+       Endpoint::
+            update: /api/v1/item/edit/<pk>/
+            Details: /api/v1/item/detail/<pk>/
+            Details: /api/v1/item/delete/<pk>/
+    """
     permission_classes = [permissions.IsAuthenticated]
 
     def get_object(self, pk):

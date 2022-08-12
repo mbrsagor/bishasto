@@ -9,7 +9,7 @@ from core.models.order import OrderItem
 from utils.filters import OrderItemFilter
 from core.serializers import order_seralizer
 from utils.pagination import StandardResultsSetPagination
-from utils.message import PERMISSION, NOTFOUND, NO_CONTENT
+from utils.message import PERMISSION, NOTFOUND, NO_CONTENT, DELETED
 from utils.response import prepare_success_response, prepare_create_success_response, prepare_error_response
 
 
@@ -111,7 +111,7 @@ class OrderItemDetailUpdateDeleteView(views.APIView):
             order_item = self.get_object(pk)
             if order_item is not None:
                 order_item.delete()
-                return Response(prepare_success_response("Data deleted successfully"), status=status.HTTP_200_OK)
+                return Response(prepare_success_response(DELETED), status=status.HTTP_200_OK)
             return Response(prepare_error_response(NOTFOUND), status=status.HTTP_400_BAD_REQUEST)
         else:
             return Response(prepare_error_response(PERMISSION), status=status.HTTP_401_UNAUTHORIZED)
