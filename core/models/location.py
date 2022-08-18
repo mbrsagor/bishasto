@@ -7,7 +7,7 @@ class Location(BaseEntity):
     name = models.CharField(max_length=120, unique=True)
     location_type = models.IntegerField(choices=LOCATIONCHOICES.location_type_choices(),
                                         default=LOCATIONCHOICES.DIVISION.value)
-    parent = models.ForeignKey('self', on_delete=models.CASCADE, related_name='location_set', blank=True, null=True)
+    parent = models.ForeignKey('self', on_delete=models.CASCADE, related_name='mainArea', blank=True, null=True)
     is_active = models.BooleanField(default=True)
     location_image = models.ImageField(upload_to='location/%y/%m', blank=True, null=True)
 
