@@ -48,7 +48,6 @@ DEFAULT_APPS = [
 LIBRARY_APPS = [
     'core',
     'user',
-    'blog',
 ]
 
 THIRD_PARTY_APPS = [
