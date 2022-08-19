@@ -1,8 +1,10 @@
+amqp==5.1.1
 asgiref==3.5.0
 backports.zoneinfo==0.2.1
 billiard==3.6.4.0
 celery==5.2.3
-Django==4.0.1
+cloudinary==1.29.0
+Django==4.0.6
 django-celery-results==2.3.0
 django-cors-headers==3.11.0
 django-environ==0.4.5
