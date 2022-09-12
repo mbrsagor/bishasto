@@ -4,9 +4,10 @@ from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 
+from utils import message
 from .models import User, Profile
 from .serializers import UserCreateSerializer, UserSerializer, ProfileSerializer, PasswordChangeSerializer
-from utils.response import prepare_create_success_response, prepare_error_response, prepare_success_response
+from utils import response
 from utils.validation import password_validation
 
 
@@ -17,12 +18,12 @@ class UserCreateAPIView(views.APIView):
     def post(self, request):
         validation_error = password_validation(request.data)
         if validation_error is not None:
-            return Response(prepare_error_response(validation_error), status=status.HTTP_400_BAD_REQUEST)
+            return Response(response.prepare_error_response(validation_error), status=status.HTTP_400_BAD_REQUEST)
         serializer = UserCreateSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
-            return Response(prepare_create_success_response(serializer.data), status=status.HTTP_201_CREATED)
-        return Response(prepare_error_response(serializer.errors), status=status.HTTP_400_BAD_REQUEST)
+            return Response(response.prepare_create_success_auth(message.USER_CREATED), status=status.HTTP_201_CREATED)
+        return Response(response.prepare_error_response(serializer.errors), status=status.HTTP_400_BAD_REQUEST)
 
 
 # User Login API
@@ -38,7 +39,7 @@ class LoginAPIView(ObtainAuthToken):
         return Response({
             'token': token.key,
             'user_id': user.pk,
-            'message': 'The user has been login successfully'
+            'message': message.USER_LOGIN
         }, status=status.HTTP_200_OK)
 
 
@@ -50,12 +51,12 @@ class ProfileAPIView(views.APIView):
         try:
             queryset = Profile.objects.get(id=self.request.user.id)
             serializer = ProfileSerializer(queryset)
-            return Response(prepare_success_response(serializer.data), status=status.HTTP_200_OK)
+            return Response(response.prepare_success_response(serializer.data), status=status.HTTP_200_OK)
         except Exception as e:
             print(e)
             queryset = User.objects.get(id=self.request.user.id)
             serializer = UserSerializer(queryset)
-            return Response(prepare_success_response(serializer.data), status=status.HTTP_200_OK)
+            return Response(response.prepare_success_response(serializer.data), status=status.HTTP_200_OK)
 
 
 # Profile update
@@ -74,10 +75,10 @@ class ProfileUpdateView(views.APIView):
             serializer = ProfileSerializer(profile, data=request.data)
             if serializer.is_valid():
                 serializer.save(user=request.user)
-                return Response(prepare_create_success_response(serializer.data), status=status.HTTP_201_CREATED)
-            return Response(prepare_error_response(serializer.errors), status=status.HTTP_400_BAD_REQUEST)
+                return Response(response.prepare_create_success_response(serializer.data), status=status.HTTP_201_CREATED)
+            return Response(response.prepare_error_response(serializer.errors), status=status.HTTP_400_BAD_REQUEST)
         else:
-            return Response(prepare_error_response("No user found for this ID"), status=status.HTTP_400_BAD_REQUEST)
+            return Response(response.prepare_error_response(message.NOTFOUND), status=status.HTTP_400_BAD_REQUEST)
 
 
 # Change Password
@@ -93,4 +94,4 @@ class LogoutView(views.APIView):
 
     def post(self, request):
         logout(request)
-        return Response(prepare_success_response('user has been logout'), status=status.HTTP_200_OK)
+        return Response(response.prepare_success_response('user has been logout'), status=status.HTTP_200_OK)
