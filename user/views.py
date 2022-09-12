@@ -16,14 +16,19 @@ class UserCreateAPIView(views.APIView):
     permission_classes = [permissions.AllowAny, ]
 
     def post(self, request):
-        validation_error = password_validation(request.data)
-        if validation_error is not None:
-            return Response(response.prepare_error_response(validation_error), status=status.HTTP_400_BAD_REQUEST)
-        serializer = UserCreateSerializer(data=request.data)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
-            return Response(response.prepare_create_success_auth(message.USER_CREATED), status=status.HTTP_201_CREATED)
-        return Response(response.prepare_error_response(serializer.errors), status=status.HTTP_400_BAD_REQUEST)
+        try:
+            validation_error = password_validation(request.data)
+            if validation_error is not None:
+                return Response(response.prepare_auth_failed(validation_error), status=status.HTTP_400_BAD_REQUEST)
+            serializer = UserCreateSerializer(data=request.data)
+            if serializer.is_valid(raise_exception=True):
+                serializer.save()
+                return Response(response.prepare_create_success_auth(message.USER_CREATED),
+                                status=status.HTTP_201_CREATED)
+            else:
+                return Response(response.prepare_auth_failed(serializer.errors), status=status.HTTP_400_BAD_REQUEST)
+        except Exception as ex:
+            return Response(response.prepare_auth_failed(str(ex)), status=status.HTTP_200_OK)
 
 
 # User Login API
@@ -70,15 +75,19 @@ class ProfileUpdateView(views.APIView):
             return None
 
     def put(self, request, pk):
-        profile = self.get_object(pk)
-        if profile is not None:
-            serializer = ProfileSerializer(profile, data=request.data)
-            if serializer.is_valid():
-                serializer.save(user=request.user)
-                return Response(response.prepare_create_success_response(serializer.data), status=status.HTTP_201_CREATED)
-            return Response(response.prepare_error_response(serializer.errors), status=status.HTTP_400_BAD_REQUEST)
-        else:
-            return Response(response.prepare_error_response(message.NOTFOUND), status=status.HTTP_400_BAD_REQUEST)
+        try:
+            profile = self.get_object(pk)
+            if profile is not None:
+                serializer = ProfileSerializer(profile, data=request.data)
+                if serializer.is_valid():
+                    serializer.save(user=request.user)
+                    return Response(response.prepare_create_success_response(serializer.data),
+                                    status=status.HTTP_201_CREATED)
+                return Response(response.prepare_error_response(serializer.errors), status=status.HTTP_400_BAD_REQUEST)
+            else:
+                return Response(response.prepare_error_response(message.NOTFOUND), status=status.HTTP_400_BAD_REQUEST)
+        except Exception as ex:
+            return Response(response.prepare_auth_failed(str(ex)), status=status.HTTP_200_OK)
 
 
 # Change Password

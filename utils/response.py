@@ -17,6 +17,16 @@ def prepare_create_success_auth(message):
     return response
 
 
+def prepare_auth_failed(message):
+    """ prepare success response for all serializer """
+    response = {
+        'status': False,
+        'message': message
+    }
+    return response
+
+
+
 def prepare_success_response(serializer_data):
     """ prepare success response for all serializer """
     response = {
