@@ -31,7 +31,7 @@ cd bishasto
 
 -------------------------------------------
 ```bash
-|--> env_example
+|--> .env_example
 |--> .env
 ```
 
