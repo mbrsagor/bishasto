@@ -1,3 +1,4 @@
+```docker
 version: "3"
 
 services:
@@ -42,4 +43,4 @@ volumes:
   media_data:
   static_data:
   postgres_data:
- 
+```

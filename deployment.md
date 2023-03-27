@@ -1,6 +1,6 @@
 # Bishasto deployment
 
-> DailyDi webapp deployment VPS on staging or production server without CI/CD and Docker container.
+> Bishasto webapp deployment VPS on staging or production server without CI/CD and Docker container.
 
 ##### Please follow the below instructions:
 
@@ -30,7 +30,6 @@ GRANT ALL PRIVILEGES ON DATABASE bishasto TO dev;
 ```bash
 git clone https://github.com/mbrsagor/bishasto.git
 cd bishasto
-git checkout stable
 virtualenv venv --python=python3.8
 source venv/bin/activate
 pip install -r requirements.txt
