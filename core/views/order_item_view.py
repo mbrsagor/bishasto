@@ -14,7 +14,9 @@ from utils.response import prepare_success_response, prepare_create_success_resp
 
 
 class OrderItemCalculation(object):
-
+    """
+    Order Item calculation model
+    """
     def __init__(self, serializer):
         self.serializer = serializer
 
@@ -46,6 +48,11 @@ class OrderItemCalculation(object):
 
 
 class OrderItemCreateAPIView(views.APIView):
+    """
+    Name: Order list view
+    URL: /api/v1/order-item/
+    Method: GET
+    """
     permission_classes = (permissions.IsAuthenticated,)
 
     def get(self, request):
@@ -63,6 +70,11 @@ class OrderItemCreateAPIView(views.APIView):
 
 
 class CreateOrderItemView(views.APIView):
+    """
+    Name: Order create list view
+    URL: /api/v1/create-order/
+    Method: POST
+    """
     permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request):
@@ -77,6 +89,13 @@ class CreateOrderItemView(views.APIView):
 
 
 class OrderItemDetailUpdateDeleteView(views.APIView):
+    """
+    Name: Order update, details and delete API
+    URL: /api/v1/orderitem/<pk>/
+    :param
+    PK
+    Method: GET, PUT, DELETE
+    """
     permission_classes = (permissions.IsAdminUser,)
 
     def get_object(self, pk):
@@ -118,6 +137,13 @@ class OrderItemDetailUpdateDeleteView(views.APIView):
 
 
 class OrderItemFilterListView(generics.ListAPIView):
+    """
+    Name Order item filter
+    URL: /api/v1/orderitem-filter
+    Method: Get
+    @params:
+    phone_number, transition_id, status
+    """
     queryset = OrderItem.objects.all()
     serializer_class = order_seralizer.OrderItemSerializer
     permission_classes = (permissions.IsAdminUser,)
