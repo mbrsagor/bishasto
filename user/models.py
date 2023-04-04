@@ -27,15 +27,6 @@ class User(AbstractUser):
         return str(self.email)
 
 
-class PhoneNumberVerification(BaseEntity):
-    phone_number = models.IntegerField(blank=False)
-    is_verified = models.BooleanField(blank=False, default=False)
-    counter = models.IntegerField(default=0, blank=False)
-
-    def __str__(self):
-        return str(self.phone_number)
-
-
 class Profile(BaseEntity):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     nick_name = models.CharField(max_length=60, blank=True, null=True)
