@@ -13,6 +13,11 @@ from utils.validation import password_validation
 
 # User Registration API
 class UserCreateAPIView(views.APIView):
+    """
+    Name: user registration API View
+    URL: /api/v1/user/registration/
+    Method: POST
+    """
     permission_classes = [permissions.AllowAny, ]
 
     def post(self, request):
@@ -33,6 +38,11 @@ class UserCreateAPIView(views.APIView):
 
 # User Login API
 class LoginAPIView(ObtainAuthToken):
+    """
+    Name: Signout API view
+    URL: /api/v1/user/login/
+    Method: POST
+    """
     permission_classes = [permissions.AllowAny, ]
 
     def post(self, request, *args, **kwargs):
@@ -50,6 +60,11 @@ class LoginAPIView(ObtainAuthToken):
 
 # User Profile API
 class ProfileAPIView(views.APIView):
+    """
+    Name: User profile view
+    URL: /api/v1/user/profile/
+    Method: GET
+    """
     permission_classes = [permissions.IsAuthenticated, ]
 
     def get(self, request):
@@ -66,6 +81,11 @@ class ProfileAPIView(views.APIView):
 
 # Profile update
 class ProfileUpdateView(views.APIView):
+    """
+    Name: user profile update
+    URL:/api/v1/user/profile/<pk>/
+    Method: PUT
+    """
     permission_classes = [permissions.IsAuthenticated]
 
     def get_object(self, pk):
@@ -92,6 +112,11 @@ class ProfileUpdateView(views.APIView):
 
 # Change Password
 class ChangePasswordView(generics.UpdateAPIView):
+    """
+    Name: Password change view
+    URL: /api/v1/user/password-change/<pk>/
+    Method: PUT
+    """
     queryset = User.objects.all()
     permission_classes = (permissions.IsAuthenticated,)
     serializer_class = PasswordChangeSerializer
@@ -99,6 +124,11 @@ class ChangePasswordView(generics.UpdateAPIView):
 
 # Logout
 class LogoutView(views.APIView):
+    """
+    Name: Logout view
+    URL:/api/user/logout/
+    Method: POST
+    """
     permission_classes = [permissions.IsAuthenticated, ]
 
     def post(self, request):

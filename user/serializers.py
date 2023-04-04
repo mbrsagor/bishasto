@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth.password_validation import validate_password
 
-from .models import User, Profile, PhoneNumberVerification
+from .models import User, Profile
 
 
 class UserCreateSerializer(serializers.ModelSerializer):
@@ -89,9 +89,3 @@ class PasswordChangeSerializer(serializers.ModelSerializer):
         instance.save()
         return instance
 
-
-# Phone number Verification serializer
-class PhoneNumberVerificationSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = PhoneNumberVerification
-        fields = '__all__'
