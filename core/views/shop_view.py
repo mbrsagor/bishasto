@@ -9,6 +9,12 @@ from utils.response import prepare_success_response, prepare_error_response
 
 class ShopProfileAPIView(views.APIView):
     permission_classes = [permissions.IsAuthenticated]
+    """
+    Name: Shop/store create listview.
+    Desc: Vendor can create shop for selling products/items
+    URL: /api/v1/shop/
+    Method: POST, GET
+    """
 
     def get(self, request):
         shop = Shop.objects.filter(owner=self.request.user)
@@ -27,6 +33,12 @@ class ShopProfileAPIView(views.APIView):
 
 
 class ShopProfileUpdateDelete(views.APIView):
+    """
+    Name: Shop update and delete API
+    Desc: Vendor can update and delete thire shop.
+    URL: /api/v1/shop/<pk>/
+    Method: PUT, DELETE
+    """
     permission_classes = [permissions.IsAuthenticated]
 
     def get_object(self, pk):

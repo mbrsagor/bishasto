@@ -8,6 +8,11 @@ from utils.enum import ROLE
 
 
 class SiteSettingCreateListView(generics.ListCreateAPIView):
+    """
+    Name: only admin can basic customization site.
+    URL: /api/v1/site/
+    Method: POST
+    """
     queryset = SiteSetting.objects.filter(is_active=True)
     serializer_class = SiteSettingSerializer
 
@@ -26,7 +31,11 @@ class SiteSettingCreateListView(generics.ListCreateAPIView):
 
 
 class PreferenceUpdateView(views.APIView):
-    # serializer_class = PreferenceSerializer
+    """
+    Name: site preference update API
+    URL: /api/v1/preference/
+    Method: PUT
+    """
 
     def get_object(self, pk):
         try:

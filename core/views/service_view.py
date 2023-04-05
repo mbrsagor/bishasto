@@ -5,6 +5,12 @@ from core.serializers.service_serializer import ServiceSerializer, ScheduleSeria
 
 
 class ServiceViewSet(viewsets.ModelViewSet):
+    """
+    Name: service CRUD endpoint.
+    Desc: Only own service provider access the operation
+    URL: /api/v1/service/
+    Method: GET, POST, PUT, DELETE
+    """
     serializer_class = ServiceSerializer
     queryset = Service.objects.all()
     permission_classes = [permissions.IsAuthenticated]
@@ -23,6 +29,12 @@ class ServiceViewSet(viewsets.ModelViewSet):
 
 
 class ScheduleViewSet(viewsets.ModelViewSet):
+    """
+    Name: Schedule CRUD operation
+    Desc: Only admin can access the operations
+    URL: /api/v1/schedule/
+    Method: GET, POST, PUT, DELETE
+    """
     queryset = Schedule.objects.all()
     serializer_class = ScheduleSerializer
     permission_classes = [permissions.IsAdminUser]
