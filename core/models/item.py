@@ -6,8 +6,18 @@ from core.models.shop import Shop
 from utils.enum import TYPES
 
 
+class Color(BaseEntity):
+    name = models.CharField(max_length=100, unique=True)
+    code = models.CharField(max_length=8, unique=True, blank=True, default='#f00')
+
+    def __str__(self):
+        return self.name
+
+
+
 class Item(BaseEntity):
     item_name = models.CharField(max_length=120)
+    color = models.ForeignKey(Color, on_delete=models.SET_NULL, null=True)
     proprietor = models.ForeignKey(Shop, on_delete=models.CASCADE, related_name='item_shop')
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='item_category')
     tags = models.ManyToManyField(Tag, related_name='item_tag')

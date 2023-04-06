@@ -39,7 +39,7 @@ class ItemSerializer(serializers.ModelSerializer):
         fields = (
             'id', 'item_name', 'category', 'tags', 'is_available', 'price', 'proprietor',
             'discount_price', 'commission', 'short_description', 'model', 'item_type',
-            'created_at', 'updated_at', 'item_image', 'galley_image2', 'galley_image3'
+            'color', 'item_image', 'galley_image2', 'galley_image3'
         )
 
     def validate_item_name(self, value):
