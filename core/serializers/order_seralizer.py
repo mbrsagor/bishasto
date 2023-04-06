@@ -5,6 +5,9 @@ from core.serializers.item_serializer import ItemSerializer
 
 
 class OrderSerializer(serializers.ModelSerializer):
+    """
+    Order serializer
+    """
     class Meta:
         model = Order
         read_only_fields = ('user',)
@@ -29,6 +32,9 @@ class OrderSerializer(serializers.ModelSerializer):
 
 
 class OrderItemSerializer(serializers.ModelSerializer):
+    """
+    Name: Order item serializer
+    """
     class Meta:
         depth = 2
         model = OrderItem

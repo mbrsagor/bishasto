@@ -4,8 +4,8 @@ from django.contrib.auth.models import AbstractUser
 from django.db.models.signals import post_save
 
 from .manager import UserManager
-from utils.enum import GENDER, ROLE
 from core.models.base import BaseEntity
+from utils.enum_utils import GENDER, ROLE
 
 
 class User(AbstractUser):

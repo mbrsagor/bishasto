@@ -2,7 +2,7 @@ from rest_framework import views, generics, status, permissions
 from django_filters import rest_framework as filters
 from rest_framework.response import Response
 
-from utils.enum import ROLE
+from utils.enum_utils import ROLE
 from core.models.order import Order
 from utils.filters import OrderFilter
 from core.serializers.order_seralizer import OrderSerializer

@@ -3,7 +3,7 @@ from django.db import models
 from core.models.base import BaseEntity
 from core.models.category import Category, Tag
 from core.models.shop import Shop
-from utils.enum import TYPES
+from utils.enum_utils import TYPES
 
 
 class Color(BaseEntity):

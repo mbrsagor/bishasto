@@ -1,6 +1,6 @@
 from django.db import models
 from core.models.base import BaseEntity
-from utils.enum import LOCATIONCHOICES
+from utils.enum_utils import LOCATIONCHOICES
 
 
 class Location(BaseEntity):

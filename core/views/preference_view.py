@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from core.models.preference import SiteSetting, Preference
 from core.serializers.preference_serializer import SiteSettingSerializer, PreferenceSerializer
 from utils.response import prepare_create_success_response, prepare_error_response
-from utils.enum import ROLE
+from utils.enum_utils import ROLE
 
 
 class SiteSettingCreateListView(generics.ListCreateAPIView):

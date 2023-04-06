@@ -4,7 +4,7 @@ from rest_framework import views, generics, status, permissions
 from rest_framework.response import Response
 from django_filters import rest_framework as filters
 
-from utils.enum import ROLE
+from utils.enum_utils import ROLE
 from core.models.order import OrderItem
 from utils.filters import OrderItemFilter
 from core.serializers import order_seralizer

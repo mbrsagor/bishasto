@@ -1,7 +1,7 @@
 from rest_framework import views, status, permissions
 from rest_framework.response import Response
 
-from utils.enum import ROLE
+from utils.enum_utils import ROLE
 from core.models.item import Item
 from utils.validation import validate_item_service
 from core.serializers.item_serializer import ItemSerializer
@@ -64,7 +64,7 @@ class ItemUpdateDetailDeleteAPIView(views.APIView):
        Name: Item/product `update` `details`, and `delete` API endpoint.
        Description: The API endpoint shopkeeper or admin, manager will only add projects/items.
        Method: get/post
-       Endpoint::
+       Endpoints::
             update: /api/v1/item/edit/<pk>/
             Details: /api/v1/item/detail/<pk>/
             Details: /api/v1/item/delete/<pk>/

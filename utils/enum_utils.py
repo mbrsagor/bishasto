@@ -1,7 +1,7 @@
-from enum import IntEnum
+from enum import Enum
 
 
-class GENDER(IntEnum):
+class GENDER(Enum):
     MALE = 0
     FEMALE = 1
     OTHERS = 2
@@ -11,7 +11,7 @@ class GENDER(IntEnum):
         return [(key.value, key.name) for key in cls]
 
 
-class ROLE(IntEnum):
+class ROLE(Enum):
     ADMIN = 0
     MANAGER = 1
     SHOPKEEPER = 2
@@ -23,7 +23,7 @@ class ROLE(IntEnum):
         return [(key.value, key.name) for key in cls]
 
 
-class LOCATIONCHOICES(IntEnum):
+class LOCATIONCHOICES(Enum):
     COUNTRY = 0
     CITY = 1
     AREA = 2
@@ -36,7 +36,7 @@ class LOCATIONCHOICES(IntEnum):
         return [(key.value, key.name) for key in cls]
 
 
-class TYPES(IntEnum):
+class TYPES(Enum):
     KG = 0
     PCS = 1
     BOX = 2
@@ -46,7 +46,7 @@ class TYPES(IntEnum):
         return [(key.value, key.name) for key in cls]
 
 
-class PROGRESS(IntEnum):
+class PROGRESS(Enum):
     PENDING = 0
     CANCEL = 1
     FAILED = 2
@@ -59,7 +59,7 @@ class PROGRESS(IntEnum):
         return [(key.value, key.name) for key in cls]
 
 
-class PAYMENT(IntEnum):
+class PAYMENT(Enum):
     CASH_ON_DELIVERY = 0
     BKASH = 1
     NOGOD = 2

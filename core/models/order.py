@@ -7,7 +7,7 @@ from django.dispatch import receiver
 from core.models.base import BaseEntity
 from core.models.item import Item
 from django.conf import settings
-from utils.enum import PROGRESS, PAYMENT
+from utils.enum_utils import PROGRESS, PAYMENT
 
 
 class Order(BaseEntity):

@@ -1,7 +1,7 @@
 from django_filters import rest_framework as filters
 
 from core.models.order import Order, OrderItem
-from utils.enum import PROGRESS
+from utils.enum_utils import PROGRESS
 
 
 class OrderFilter(filters.FilterSet):
