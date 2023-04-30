@@ -7,15 +7,8 @@ from core.models.order import Order, OrderItem
 from core.models.service import Service, Schedule
 from core.models.preference import SiteSetting, Preference
 
-admin.site.register(Location)
-admin.site.register(Category)
-admin.site.register(Shop)
-admin.site.register(Item)
-admin.site.register(Order)
-admin.site.register(Color)
-admin.site.register(OrderItem)
-admin.site.register(Service)
-admin.site.register(Schedule)
-admin.site.register(SiteSetting)
-admin.site.register(Preference)
-admin.site.register(Tag)
+admin.site.register(
+    Location, Category, Shop, Item,
+    Order, Color, OrderItem, Service, Schedule,
+    SiteSetting, Preference, Tag
+)
