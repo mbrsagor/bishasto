@@ -1,13 +1,14 @@
 from django.contrib.auth import logout
+
+from rest_framework.response import Response
+from rest_framework.authtoken.models import Token
 from rest_framework import views, status, permissions, generics
 from rest_framework.authtoken.views import ObtainAuthToken
-from rest_framework.authtoken.models import Token
-from rest_framework.response import Response
 
 from utils import message
-from .models import User, Profile
-from .serializers import UserCreateSerializer, UserSerializer, ProfileSerializer, PasswordChangeSerializer
+from user import serializers
 from utils import response
+from .models import User, Profile
 from utils.validation import password_validation
 
 
@@ -25,7 +26,7 @@ class UserCreateAPIView(views.APIView):
             validation_error = password_validation(request.data)
             if validation_error is not None:
                 return Response(response.prepare_auth_failed(validation_error), status=status.HTTP_400_BAD_REQUEST)
-            serializer = UserCreateSerializer(data=request.data)
+            serializer = serializers.UserCreateSerializer(data=request.data)
             if serializer.is_valid(raise_exception=True):
                 serializer.save()
                 return Response(response.prepare_create_success_auth(message.USER_CREATED),
@@ -70,12 +71,12 @@ class ProfileAPIView(views.APIView):
     def get(self, request):
         try:
             queryset = Profile.objects.get(id=self.request.user.id)
-            serializer = ProfileSerializer(queryset)
+            serializer = serializers.ProfileSerializer(queryset)
             return Response(response.prepare_success_response(serializer.data), status=status.HTTP_200_OK)
         except Exception as e:
             print(e)
             queryset = User.objects.get(id=self.request.user.id)
-            serializer = UserSerializer(queryset)
+            serializer = serializers.UserSerializer(queryset)
             return Response(response.prepare_success_response(serializer.data), status=status.HTTP_200_OK)
 
 
@@ -98,7 +99,7 @@ class ProfileUpdateView(views.APIView):
         try:
             profile = self.get_object(pk)
             if profile is not None:
-                serializer = ProfileSerializer(profile, data=request.data)
+                serializer = serializers.ProfileSerializer(profile, data=request.data)
                 if serializer.is_valid():
                     serializer.save(user=request.user)
                     return Response(response.prepare_create_success_response(serializer.data),
@@ -119,7 +120,7 @@ class ChangePasswordView(generics.UpdateAPIView):
     """
     queryset = User.objects.all()
     permission_classes = (permissions.IsAuthenticated,)
-    serializer_class = PasswordChangeSerializer
+    serializer_class = serializers.PasswordChangeSerializer
 
 
 # Logout
