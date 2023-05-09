@@ -227,6 +227,10 @@ cloudinary.config(
     api_secret='your_api_secret'
 )
 
+# Stripe config
+STRIPE_SECRET_KEY = 'stripe_secret_key'
+STRIPE_PUBLIC_KEY = 'stripe_public_key'
+
 # Logger start from here.
 logging.config.dictConfig({
     'version': 1,
