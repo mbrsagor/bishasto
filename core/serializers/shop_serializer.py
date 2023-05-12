@@ -14,12 +14,15 @@ class ShopSerializer(serializers.ModelSerializer):
 
     """
         def get_averageRating(self, obj):
-        get_ratings = []
-        product_rating = ProductRating.objects.filter(product=obj)
-        ratings = ProductRatingSerializer(product_rating, many=True).data
-        # put only rating number
-        for rating in ratings:
-            get_ratings.append(rating['rating'])
-        result = sum(get_ratings) / len(get_ratings)
-        return int(result)
+            get_ratings = []
+            product_rating = ProductRating.objects.filter(product=obj)
+            ratings = ProductRatingSerializer(product_rating, many=True).data
+            try:
+                # put only rating number
+                for rating in ratings:
+                    get_ratings.append(rating['rating'])
+                result = sum(get_ratings) / len(get_ratings)
+                return int(result)
+            except ZeroDivisionError:
+                return 0
     """
