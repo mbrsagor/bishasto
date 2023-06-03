@@ -8,7 +8,7 @@ from core.models.service import Service, Schedule
 from core.models.preference import SiteSetting, Preference
 
 admin.site.register(
-    Location, Category, Shop, Item,
-    Order, Color, OrderItem, Service, Schedule,
-    SiteSetting, Preference, Tag
+    [Location, Category, Shop, Item,
+     Order, Color, OrderItem, Service, Schedule,
+     SiteSetting, Preference, Tag]
 )
