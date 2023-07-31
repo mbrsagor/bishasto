@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404
 from django.utils.translation import gettext_lazy as _
 from rest_framework.permissions import BasePermission
 
-from orders.models import Order
+from core.models.order import Order
 
 
 class IsOrderPending(BasePermission):
