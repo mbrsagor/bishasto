@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from utils.enum_utils import ROLE
 from core.models.order import Order
 from utils.filters import OrderFilter
+from utils.fcm import send_notification
 from core.serializers.order_seralizer import OrderSerializer
 from utils.pagination import StandardResultsSetPagination
 from utils.message import PERMISSION, NOTFOUND, NO_CONTENT
@@ -30,6 +31,8 @@ class OrderCreateListAPIView(views.APIView):
             serializer = OrderSerializer(data=request.data)
             if serializer.is_valid():
                 serializer.save(user=self.request.user)
+                # FCM messing for android and IOS user
+                send_notification('device_token',  'FCM title here', 'FCM message here.')
                 return Response(prepare_create_success_response(serializer.data), status=status.HTTP_201_CREATED)
             return Response(prepare_error_response(serializer.errors), status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
