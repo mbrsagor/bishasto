@@ -13,6 +13,11 @@ from utils.response import prepare_success_response, prepare_error_response, pre
 
 
 class OrderCreateListAPIView(views.APIView):
+    """
+    Name: Order create and listview API.
+    URL: /api/v1/orders
+    Method: GET, POST
+    """
     permission_classes = (permissions.IsAuthenticated,)
 
     def get(self, request):
@@ -31,7 +36,7 @@ class OrderCreateListAPIView(views.APIView):
             serializer = OrderSerializer(data=request.data)
             if serializer.is_valid():
                 serializer.save(user=self.request.user)
-                # FCM messing for android and IOS user
+                # FCM notification for android and IOS user
                 send_notification('device_token',  'FCM title here', 'FCM message here.')
                 return Response(prepare_create_success_response(serializer.data), status=status.HTTP_201_CREATED)
             return Response(prepare_error_response(serializer.errors), status=status.HTTP_400_BAD_REQUEST)
@@ -40,6 +45,12 @@ class OrderCreateListAPIView(views.APIView):
 
 
 class OrderStatusUpdateDetailsAPIView(views.APIView):
+    """
+    Name: Order update API
+    Desc: admin can confirm, cancel or progress update the order
+    Method: PUT
+    URL: /api/v1/order-update/
+    """
     permission_classes = (permissions.IsAuthenticated,)
 
     def get_object(self, pk):
@@ -76,6 +87,12 @@ class OrderStatusUpdateDetailsAPIView(views.APIView):
 
 
 class OrderFilterListView(generics.ListAPIView):
+    """
+    Name: Order filter API
+    URL: /api/v1/order-filter/
+    Method: GET
+    params: name, OrderID
+    """
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
     permission_classes = (permissions.IsAdminUser,)
