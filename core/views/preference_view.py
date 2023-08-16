@@ -1,10 +1,11 @@
 from rest_framework import generics, views, status
 from rest_framework.response import Response
 
-from core.models.preference import SiteSetting, Preference
-from core.serializers.preference_serializer import SiteSettingSerializer, PreferenceSerializer
-from utils.response import prepare_create_success_response, prepare_error_response
 from utils.enum_utils import ROLE
+from utils.message import PERMISSION
+from core.models.preference import SiteSetting, Preference
+from utils.response import prepare_create_success_response, prepare_error_response
+from core.serializers.preference_serializer import SiteSettingSerializer, PreferenceSerializer
 
 
 class SiteSettingCreateListView(generics.ListCreateAPIView):
@@ -27,7 +28,7 @@ class SiteSettingCreateListView(generics.ListCreateAPIView):
             except Exception as e:
                 return Response(prepare_error_response(str(e)), status=status.HTTP_404_NOT_FOUND)
         else:
-            return Response(prepare_error_response('You have no permission'), status=status.HTTP_401_UNAUTHORIZED)
+            return Response(prepare_error_response(PERMISSION), status=status.HTTP_401_UNAUTHORIZED)
 
 
 class PreferenceUpdateView(views.APIView):
@@ -55,4 +56,4 @@ class PreferenceUpdateView(views.APIView):
             except Exception as e:
                 return Response(prepare_error_response(str(e)), status=status.HTTP_404_NOT_FOUND)
         else:
-            return Response(prepare_error_response('You have no permission'), status=status.HTTP_401_UNAUTHORIZED)
+            return Response(prepare_error_response(PERMISSION), status=status.HTTP_401_UNAUTHORIZED)
