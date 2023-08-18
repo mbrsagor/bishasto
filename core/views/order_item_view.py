@@ -1,8 +1,6 @@
-from django.core.mail import send_mail
-from django.conf import settings
 from rest_framework import views, generics, status, permissions
-from rest_framework.response import Response
 from django_filters import rest_framework as filters
+from rest_framework.response import Response
 
 from utils.enum_utils import ROLE
 from core.models.order import OrderItem

@@ -58,8 +58,8 @@ THIRD_PARTY_APPS = [
     'cloudinary',
     'corsheaders',
     'rest_framework',
-    'rest_framework.authtoken',
     'django_filters',
+    'rest_framework.authtoken',
     'django_celery_results',
 ]
 
