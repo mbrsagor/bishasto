@@ -157,3 +157,5 @@ sudo ufw allow 'Nginx Full'
 ```bash
 sudo tail -F /var/log/nginx/error.log
 ```
+
+> https://medium.com/@mudasirhaji/set-up-a-cicd-pipeline-using-jenkinsfile-and-docker-on-aws-ec2-555eb56d50c2
