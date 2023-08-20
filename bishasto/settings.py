@@ -273,3 +273,5 @@ logging.config.dictConfig({
         }
     }
 })
+
+# command: [python /code/manage.py  makemigrations user, python /code/manage.py migrate user, python /code/manage.py runserver 0.0.0.0:8000]
