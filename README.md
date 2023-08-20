@@ -8,7 +8,7 @@
 
 - Python 3.8
 - Celery 5.2.3
-- postgres  12.5
+- postgres 12.5
 
 The following steps will walk you thru installation on a Mac. Linux should be similar. It's also possible to develop 
 on a Windows machine, but I have not documented the steps. If you've developed django apps on Windows, you should have little problem getting up and running.
