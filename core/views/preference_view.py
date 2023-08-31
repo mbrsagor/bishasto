@@ -1,10 +1,9 @@
 from rest_framework import generics, views, status
 from rest_framework.response import Response
 
-from utils.enum_utils import ROLE
-from utils.message import PERMISSION
+
+from utils import response, message, enum_utils
 from core.models.preference import SiteSetting, Preference
-from utils.response import prepare_create_success_response, prepare_error_response
 from core.serializers.preference_serializer import SiteSettingSerializer, PreferenceSerializer
 
 
@@ -18,17 +17,17 @@ class SiteSettingCreateListView(generics.ListCreateAPIView):
     serializer_class = SiteSettingSerializer
 
     def post(self, request, *args, **kwargs):
-        if request.user.role == ROLE.ADMIN:
+        if request.user.role == enum_utils.ROLE.ADMIN:
             try:
                 serializer = SiteSettingSerializer(data=request.data)
                 if serializer.is_valid():
                     serializer.save()
-                    return Response(prepare_create_success_response(serializer.data), status=status.HTTP_201_CREATED)
-                return Response(prepare_error_response(serializer.errors), status=status.HTTP_404_NOT_FOUND)
+                    return Response(response.prepare_create_success_response(serializer.data), status=status.HTTP_201_CREATED)
+                return Response(response.prepare_error_response(serializer.errors), status=status.HTTP_404_NOT_FOUND)
             except Exception as e:
-                return Response(prepare_error_response(str(e)), status=status.HTTP_404_NOT_FOUND)
+                return Response(response.prepare_error_response(str(e)), status=status.HTTP_404_NOT_FOUND)
         else:
-            return Response(prepare_error_response(PERMISSION), status=status.HTTP_401_UNAUTHORIZED)
+            return Response(response.prepare_error_response(message.PERMISSION), status=status.HTTP_401_UNAUTHORIZED)
 
 
 class PreferenceUpdateView(views.APIView):
@@ -45,15 +44,15 @@ class PreferenceUpdateView(views.APIView):
             raise None
 
     def put(self, request, pk):
-        if request.user.role == ROLE.ADMIN or request.user.role == ROLE.MANAGER:
+        if request.user.role == enum_utils.ROLE.ADMIN or request.user.role == enum_utils.ROLE.MANAGER:
             try:
                 preference = self.get_object(pk)
                 serializer = PreferenceSerializer(preference, data=request.data)
                 if serializer.is_valid(raise_exception=True):
                     serializer.save()
-                    return Response(prepare_create_success_response(serializer.data), status=status.HTTP_201_CREATED)
-                return Response(prepare_error_response(serializer.errors), status=status.HTTP_400_BAD_REQUEST)
+                    return Response(response.prepare_create_success_response(serializer.data), status=status.HTTP_201_CREATED)
+                return Response(response.prepare_error_response(serializer.errors), status=status.HTTP_400_BAD_REQUEST)
             except Exception as e:
-                return Response(prepare_error_response(str(e)), status=status.HTTP_404_NOT_FOUND)
+                return Response(response.prepare_error_response(str(e)), status=status.HTTP_404_NOT_FOUND)
         else:
-            return Response(prepare_error_response(PERMISSION), status=status.HTTP_401_UNAUTHORIZED)
+            return Response(response.prepare_error_response(message.PERMISSION), status=status.HTTP_401_UNAUTHORIZED)
