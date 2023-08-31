@@ -5,11 +5,9 @@ from rest_framework.authtoken.models import Token
 from rest_framework import views, status, permissions, generics
 from rest_framework.authtoken.views import ObtainAuthToken
 
-from utils import message
 from user import serializers
-from utils import response
 from .models import User, Profile
-from utils.validation import password_validation
+from utils import response, message, validation
 
 
 # User Registration API
@@ -23,7 +21,7 @@ class UserCreateAPIView(views.APIView):
 
     def post(self, request):
         try:
-            validation_error = password_validation(request.data)
+            validation_error = validation.password_validation(request.data)
             if validation_error is not None:
                 return Response(response.prepare_auth_failed(validation_error), status=status.HTTP_400_BAD_REQUEST)
             serializer = serializers.UserCreateSerializer(data=request.data)
