@@ -61,4 +61,9 @@ celery -A bishasto worker -l INFO
 celery --help
 ```
 
+> Django Paypal Payment Gateway Integration with Working Example::
+
+[ Paypal Payment Gateway Integration](https://studygyaan.com/django/django-paypal-payment-gateway-integration-tutorial)
+###### Another link
+[ACCEPT PAYPAL PAYMENTS ON DJANGO APPLICAITON](https://www.guguweb.com/2021/01/12/how-to-accept-paypal-payments-on-your-django-application/)
 ## Happy coding :wink:
