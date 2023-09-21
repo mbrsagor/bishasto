@@ -58,13 +58,13 @@ class ItemAPIView(views.APIView):
 
 class ItemUpdateDetailDeleteAPIView(views.APIView):
     """
-       Name: Item/product `update` `details`, and `delete` API endpoint.
-       Description: The API endpoint shopkeeper or admin, manager will only add projects/items.
-       Method: get/post
-       Endpoints::
-            update: /api/v1/item/edit/<pk>/
-            Details: /api/v1/item/detail/<pk>/
-            Details: /api/v1/item/delete/<pk>/
+    Name: Item/product `update` `details`, and `delete` API endpoint.
+    Description: The API endpoint shopkeeper or admin, manager will only add projects/items.
+    Method: get/post
+    Endpoints::
+        update: /api/v1/item/edit/<pk>/
+        Details: /api/v1/item/detail/<pk>/
+        Details: /api/v1/item/delete/<pk>/
     """
     permission_classes = [permissions.IsAuthenticated]
 

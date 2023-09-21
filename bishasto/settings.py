@@ -74,10 +74,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # THIRD PARTY cors-headers
-    'corsheaders.middleware.CorsMiddleware',
-    # Custom middleware
-    'bishasto.middleware.CustomMiddleware'
+    'corsheaders.middleware.CorsMiddleware', # THIRD PARTY cors-headers
+    'bishasto.middleware.CustomMiddleware', # Custom middleware
 ]
 
 ROOT_URLCONF = 'bishasto.urls'
@@ -272,5 +270,3 @@ logging.config.dictConfig({
         }
     }
 })
-
-# command: [python /code/manage.py  makemigrations user, python /code/manage.py migrate user, python /code/manage.py runserver 0.0.0.0:8000]
