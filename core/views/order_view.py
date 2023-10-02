@@ -96,3 +96,45 @@ class OrderFilterListView(generics.ListAPIView):
     pagination_class = pagination.StandardResultsSetPagination
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = OrderFilter
+
+
+class OrderReturnPayloadAPI(views.APIView):
+    def get(self, request, order_number):
+        try:
+            total_cashback = []
+            product_return = ProductReturn.objects.filter(store_id=self.request.user.storeOwner.id)
+            if product_return is not None:
+                product__return_serializer = product_return_serializer.ProductReturnUtilsSerialize(product_return,
+                                                                                                   many=True).data
+                for return_item in product__return_serializer:
+                    total_cashback.append(return_item['price'])
+
+            order = Order.objects.get(order_number=order_number)
+            if order is not None:
+                serializer = product_return_serializer.OrderReturnPayloadSerializer(order).data
+                resp = {
+                    'id': serializer.get('id'),
+                    'customer_name': serializer.get('customer_name'),
+                    'customer_phone': serializer.get('customer_phone'),
+                    'order_types': serializer.get('order_types'),
+                    'payment_type': serializer.get('payment_type'),
+                    'created_at': serializer.get('created_at'),
+                    'sub_total': serializer.get('sub_total'),
+                    'total_vat': serializer.get('total_vat'),
+                    'total_tax': serializer.get('total_tax'),
+                    'order_number': serializer.get('order_number'),
+                    'discount_in_percent': serializer.get('discount_in_percent'),
+                    'total': serializer.get('total'),
+                    'cash_back': sum(total_cashback),
+                    'order_item': serializer.get('order_item')
+                }
+                return Response(response.prepare_success_list_response(messages.DATA_RETURN, resp),
+                                status=status.HTTP_200_OK)
+            return Response(response.prepare_error_response(messages.NOT_FOUND), status=status.HTTP_200_OK)
+        except Order.DoesNotExist:
+            return Response(response.prepare_error_response(messages.NOT_FOUND), status=status.HTTP_200_OK)
+
+
+
+
+
