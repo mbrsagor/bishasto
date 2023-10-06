@@ -92,3 +92,10 @@ class PasswordChangeSerializer(serializers.ModelSerializer):
         instance.save()
         return instance
 
+
+class PasswordSerializer(serializers.Serializer):
+    """
+    Serializer for password change endpoint.
+    """
+
+    new_password = serializers.CharField(required=True)

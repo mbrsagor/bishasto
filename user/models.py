@@ -1,5 +1,6 @@
-from datetime import date, datetime
 from django.db import models
+from datetime import date, datetime
+from django.core.validators import RegexValidator
 from django.contrib.auth.models import AbstractUser
 from django.db.models.signals import post_save
 
@@ -57,3 +58,16 @@ def create_user_profile(sender, instance, created, **kwargs):
 
 
 post_save.connect(create_user_profile, sender=User)
+
+
+class ResetPhoneOTP(AbstractUser):
+    phone_regex = RegexValidator(regex=r'^\+?1?\d{9,14}$',
+                                 message="Phone number must be entered in the form of +919999999999.")
+    phone = models.CharField(validators=[phone_regex], max_length=17, blank=True)
+    otp = models.CharField(max_length=9, blank=True, null=True)
+    count = models.IntegerField(default=0, help_text='Number of opt_sent')
+    validated = models.BooleanField(default=False,
+                                    help_text='if it is true, that means user have validate opt correctly in seconds')
+
+    def __str__(self):
+        return str(self.phone) + ' is sent ' + str(self.otp)
