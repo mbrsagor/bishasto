@@ -26,7 +26,8 @@ class OrderCreateListAPIView(views.APIView):
             serializer = OrderSerializer(order, many=True)
             return Response(custom_response.prepare_success_response(serializer.data), status=status.HTTP_200_OK)
         else:
-            return Response(custom_response.prepare_error_response(message.NO_CONTENT), status=status.HTTP_400_BAD_REQUEST)
+            return Response(custom_response.prepare_error_response(message.NO_CONTENT),
+                            status=status.HTTP_400_BAD_REQUEST)
 
     def post(self, request):
         try:
@@ -34,9 +35,11 @@ class OrderCreateListAPIView(views.APIView):
             if serializer.is_valid():
                 serializer.save(user=self.request.user)
                 # FCM notification for android and IOS user
-                fcm.send_notification('device_token',  'FCM title here', 'FCM message here.')
-                return Response(custom_response.prepare_create_success_response(serializer.data), status=status.HTTP_201_CREATED)
-            return Response(custom_response.prepare_error_response(serializer.errors), status=status.HTTP_400_BAD_REQUEST)
+                fcm.send_notification('device_token', 'FCM title here', 'FCM message here.')
+                return Response(custom_response.prepare_create_success_response(serializer.data),
+                                status=status.HTTP_201_CREATED)
+            return Response(custom_response.prepare_error_response(serializer.errors),
+                            status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
             return Response(custom_response.prepare_error_response(str(e)), status=status.HTTP_404_NOT_FOUND)
 
@@ -73,12 +76,14 @@ class OrderStatusUpdateDetailsAPIView(views.APIView):
                         serializer.save(user=self.request.user)
                         return Response(custom_response.prepare_create_success_response(serializer.data),
                                         status=status.HTTP_201_CREATED)
-                    return Response(custom_response.prepare_error_response(serializer.errors), status=status.HTTP_400_BAD_REQUEST)
+                    return Response(custom_response.prepare_error_response(serializer.errors),
+                                    status=status.HTTP_400_BAD_REQUEST)
                 else:
                     return Response(custom_response.prepare_error_response(message.NOTFOUND),
                                     status=status.HTTP_400_BAD_REQUEST)
             else:
-                return Response(custom_response.prepare_error_response(message.PERMISSION), status=status.HTTP_400_BAD_REQUEST)
+                return Response(custom_response.prepare_error_response(message.PERMISSION),
+                                status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
             return Response(custom_response.prepare_error_response(str(e)), status=status.HTTP_404_NOT_FOUND)
 
@@ -98,7 +103,7 @@ class OrderFilterListView(generics.ListAPIView):
     filterset_class = OrderFilter
 
 
-class OrderReturnPayloadAPI(views.APIView):
+"""class OrderReturnPayloadAPI(views.APIView):
     def get(self, request, order_number):
         try:
             total_cashback = []
@@ -134,7 +139,28 @@ class OrderReturnPayloadAPI(views.APIView):
         except Order.DoesNotExist:
             return Response(response.prepare_error_response(messages.NOT_FOUND), status=status.HTTP_200_OK)
 
+"""
 
+"""
+@property
+    def get_discount(self):
+        product = Product.objects.get(id=self.product.id)
+        if product.discount_in_amount > 0.0 and product.discount_in_percent == 0:
+            return product.discount_in_amount
+        elif product.discount_in_percent > 0 and product.discount_in_amount == 0.0:
+            return product.discount_in_percent
 
+    @property
+    def price_after_discount(self):
+        after_discount_total = self.product.price * self.quantity
+        product = Product.objects.get(id=self.product.id)
+        if product.discount_in_amount > 0.0 and product.discount_in_percent == 0:
+            return after_discount_total - product.discount_in_amount
+        elif product.discount_in_percent > 0 and product.discount_in_amount == 0.0:
+            return after_discount_total - (after_discount_total * product.discount_in_percent) / 100
 
-
+    @property
+    def get_discount_type(self):
+        product = Product.objects.get(id=self.product.id)
+        return product.get_discount_type
+"""
