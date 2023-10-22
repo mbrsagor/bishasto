@@ -152,12 +152,15 @@ class OrderFilterListView(generics.ListAPIView):
 
     @property
     def price_after_discount(self):
-        after_discount_total = self.product.price * self.quantity
-        product = Product.objects.get(id=self.product.id)
-        if product.discount_in_amount > 0.0 and product.discount_in_percent == 0:
-            return after_discount_total - product.discount_in_amount
-        elif product.discount_in_percent > 0 and product.discount_in_amount == 0.0:
-            return after_discount_total - (after_discount_total * product.discount_in_percent) / 100
+        product = Product.objects.get(id=self.product_id)
+        if product.discount == 1:
+            return product.price * self.quantity
+        else:
+            after_discount_total = product.price * self.quantity
+            if product.discount_in_amount > 0.0 and product.discount_in_percent == 0:
+                return after_discount_total - product.discount_in_amount
+            elif product.discount_in_percent > 0 and product.discount_in_amount == 0.0:
+                return after_discount_total - (after_discount_total * product.discount_in_percent) / 100
 
     @property
     def get_discount_type(self):
