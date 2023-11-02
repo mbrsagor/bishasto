@@ -1,3 +1,4 @@
+import random
 from django.db import models
 from datetime import date, datetime
 from django.core.validators import RegexValidator
@@ -14,12 +15,28 @@ class User(AbstractUser):
     phone_number = models.CharField(verbose_name='Phone Number', max_length=14, unique=True)
     role = models.IntegerField(choices=ROLE.get_choices(), default=ROLE.CUSTOMER.value)
     gender = models.IntegerField(choices=GENDER.select_gender(), default=GENDER.MALE.value)
+    otp = models.CharField(max_length=6, null=True, blank=True)
     address = models.TextField(blank=True)
     is_superuser = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'phone_number'
     REQUIRED_FIELDS = ['email', 'username']
     objects = UserManager()
+
+    # Method to Put a Random OTP in the CustomerUser table.
+    def save(self, *args, **kwargs):
+        number_list = [x for x in range(10)]
+        code_items_for_otp = []
+        for i in range(6):
+            num = random.choice(number_list)
+            code_items_for_otp.append(num)
+        code_string = "".join(str(item)
+                              for item in code_items_for_otp)
+        # A six digit random number from the list will be saved in top field
+        self.otp = code_string
+        # print(f"OTP: {self.otp}")
+        super().save(*args, **kwargs)
+
 
     class Meta:
         ordering = ('-id',)
