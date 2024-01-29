@@ -32,5 +32,3 @@ def fuel_create_view(request):
         'fuel_from': fuel_from
     }
     return render(request, template_name, context)
-
-

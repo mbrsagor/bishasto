@@ -1,0 +1,28 @@
+<div class="modal fade" id="fuelTypeModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div style="margin-top: 10%" class="modal-dialog" role="document">
+        <form method="post">
+            {% csrf_token %}
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Create Fuel Type</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group mb-2">
+                        <label for="name">Enter fuel name</label>
+                        {{ fuel_from.name }}
+                    </div>
+                    <div class="form-check form-switch mt-2">
+                        {{ fuel_from.is_active }}
+                        <label class="form-check-label" for="is_active">Do you want to activate</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light btn-sm" data-bs-dismiss="modal">Close</button>
+                    <button name="fuel_form" type="submit" class="btn btn-success btn-sm">Save</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
