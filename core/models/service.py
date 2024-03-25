@@ -1,10 +1,10 @@
 from django.db import models
-from core.models.base import BaseEntity
+from core.models.base import Timestamp
 from core.models.category import Category
 from core.models.shop import Shop
 
 
-class Schedule(BaseEntity):
+class Schedule(Timestamp):
     day_name = models.CharField(max_length=30)
     start_schedule = models.TimeField()
     end_schedule = models.TimeField()
@@ -13,7 +13,7 @@ class Schedule(BaseEntity):
         return self.day_name
 
 
-class Service(BaseEntity):
+class Service(Timestamp):
     service_name = models.CharField(max_length=120)
     proprietor = models.ForeignKey(Shop, on_delete=models.CASCADE, related_name='shop')
     service_category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='services')

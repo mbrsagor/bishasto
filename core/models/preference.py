@@ -1,16 +1,16 @@
 from django.db import models
 from django.db.models.signals import post_save
-from core.models.base import BaseEntity
+from core.models.base import Timestamp
 
 
-class SiteSetting(BaseEntity):
+class SiteSetting(Timestamp):
     name = models.CharField(max_length=50)
     is_active = models.BooleanField(default=True)
 
     def __str__(self): return self.name
 
 
-class Preference(BaseEntity):
+class Preference(Timestamp):
     site = models.OneToOneField(SiteSetting, on_delete=models.CASCADE, related_name='site_settings')
     site_name = models.CharField(max_length=120, default='your website name', blank=True, null=True)
     copyright = models.CharField(max_length=120, default='©Copyright 2022 | bishasto All Rights Reserved', blank=True,

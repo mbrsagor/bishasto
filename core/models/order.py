@@ -4,13 +4,13 @@ from django.db.models.signals import pre_save
 from django.core.mail import send_mail
 from django.dispatch import receiver
 
-from core.models.base import BaseEntity
+from core.models.base import Timestamp
 from core.models.item import Item
 from django.conf import settings
 from utils.enum_utils import PROGRESS, PAYMENT
 
 
-class Order(BaseEntity):
+class Order(Timestamp):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL, related_name='customer')
     item = models.ForeignKey(Item, on_delete=models.CASCADE, related_name='order_items')
     quantity = models.IntegerField(default=1)
@@ -36,7 +36,7 @@ class Order(BaseEntity):
         return self.item.proprietor.shop_name
 
 
-class OrderItem(BaseEntity):
+class OrderItem(Timestamp):
     customer = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL,
                                  related_name='OrderItemCustomer')
     orders = models.ManyToManyField(Order, related_name='orderItems')

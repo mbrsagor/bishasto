@@ -1,12 +1,12 @@
 from datetime import date, datetime
 from django.db import models
 
-from core.models.base import BaseEntity
+from core.models.base import Timestamp
 from core.models.location import Location
 from user.models import User
 
 
-class Shop(BaseEntity):
+class Shop(Timestamp):
     shop_name = models.CharField(max_length=120, unique=True)
     phone_number = models.CharField(max_length=14, blank=True, null=True)
     owner = models.OneToOneField(User, on_delete=models.CASCADE, related_name='shop_owner')

@@ -1,9 +1,9 @@
 from django.db import models
-from core.models.base import BaseEntity
+from core.models.base import Timestamp
 from cloudinary.models import CloudinaryField
 
 
-class Category(BaseEntity):
+class Category(Timestamp):
     name = models.CharField(max_length=90)
     parent = models.ForeignKey('self', on_delete=models.CASCADE, related_name='category', blank=True, null=True,
                                default=None)
@@ -20,7 +20,7 @@ class Category(BaseEntity):
         return Category.objects.filter(parent=self).count()
 
 
-class Tag(BaseEntity):
+class Tag(Timestamp):
     name = models.CharField(max_length=50)
 
     def __str__(self):

@@ -1,9 +1,9 @@
 from django.db import models
-from core.models.base import BaseEntity
+from core.models.base import Timestamp
 from utils.enum_utils import LOCATIONCHOICES
 
 
-class Location(BaseEntity):
+class Location(Timestamp):
     name = models.CharField(max_length=120, unique=True)
     location_type = models.IntegerField(choices=LOCATIONCHOICES.location_type_choices(),
                                         default=LOCATIONCHOICES.DIVISION.value)
