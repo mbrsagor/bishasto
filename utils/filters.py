@@ -5,6 +5,9 @@ from utils.enum_utils import PROGRESS
 
 
 class OrderFilter(filters.FilterSet):
+    """
+    Order filter
+    """
     item_name = filters.ModelChoiceFilter(field_name='item_name', queryset=Order.objects.all())
     is_complete = filters.BooleanFilter(field_name='is_complete')
 
@@ -16,6 +19,9 @@ class OrderFilter(filters.FilterSet):
 
 
 class OrderItemFilter(filters.FilterSet):
+    """
+    Order item filter
+    """
     phone_number = filters.CharFilter(field_name='phone_number')
     transition_id = filters.CharFilter(field_name='transition_id')
     status = filters.ChoiceFilter(field_name='status', choices=PROGRESS.order_status())
