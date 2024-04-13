@@ -45,3 +45,15 @@ def prepare_error_response(serializer_error):
         "data": None
     }
     return response
+
+
+def new_order_success_respone(serializer_error, order_id, amount):
+    """ prepare error response for all serializer """
+    response = {
+        'type': 'success',
+        'message': 'Data successfully returned',
+        'serializer_error': serializer_error,
+        'order_id': order_id,
+        'amount': amount
+    }
+    return response
