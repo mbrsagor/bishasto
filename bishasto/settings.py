@@ -75,7 +75,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware', # THIRD PARTY cors-headers
-    'bishasto.middleware.CustomMiddleware', # Custom middleware
+    'bishasto.middleware.TimezoneMiddleware', # Custom timezone middleware
 ]
 
 ROOT_URLCONF = 'bishasto.urls'

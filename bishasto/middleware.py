@@ -1,15 +1,18 @@
-class CustomMiddleware:
+import pytz
+import requests
+
+from django.utils import timezone
+
+
+class TimezoneMiddleware:
     def __init__(self, get_response):
         self.get_response = get_response
 
-    def __call__(self, request):
-        print("custom middleware before next middleware/view")
-        # Code to be executed for each request before
-        # the view (and later middleware) are called.
 
-        response = self.get_response(request)
-
-        # Code to be executed for each response after the view is called
-        print("custom middleware after response or previous middleware")
-
-        return response
+def __call__(self, request):
+    tzname = 'Asia/Dhaka'
+    if tzname:
+        timezone.activate(pytz.timezone(tzname))
+    else:
+        timezone.deactivate()
+    return self.get_response(request)
