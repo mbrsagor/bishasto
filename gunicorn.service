@@ -10,5 +10,3 @@ ExecStart=/home/ubuntu/bishasto/venv/bin/gunicorn --access-logfile - --workers 3
 
 [Install]
 WantedBy=multi-user.target
-© 2022 GitHub, Inc.
-Terms
