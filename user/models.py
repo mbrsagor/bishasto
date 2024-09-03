@@ -90,6 +90,7 @@ class ResetPhoneOTP(AbstractUser):
         return str(self.phone) + ' is sent ' + str(self.otp)
 
 
+# User can follow another user
 class Follow(Timestamp):
     follower = models.ForeignKey(User, related_name='following', on_delete=models.CASCADE)
     following = models.ForeignKey(User, related_name='followers', on_delete=models.CASCADE)
