@@ -16,7 +16,7 @@ on a Windows machine, but I have not documented the steps. If you've developed d
 
 ##### Create database
 ``
-psql postgres
+psql -U postgres -W
 CREATE DATABASE bissasto
 ``
 
@@ -38,7 +38,7 @@ cd bishasto
 
 #### Open postgres using terminal database:
 ```
-psql postgres 
+psql -U postgres -W
 ```
 
 Run the application in your local development server:
