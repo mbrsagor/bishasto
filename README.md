@@ -1,5 +1,5 @@
 # Bishasto
-> The application is basically online service backend web application like multi vendor online service platform. Vendor will sell services or products and customer will taking the services or products.
+> The application is basically an online service backend web application like multi-vendor online service platform. Vendor will sell services or products, and the customer will taking the services or products.
 
 
 #### Setup
@@ -10,8 +10,8 @@
 - Celery 5.2.3
 - postgres 12.5
 
-The following steps will walk you thru installation on a Mac. Linux should be similar. It's also possible to develop 
-on a Windows machine, but I have not documented the steps. If you've developed django apps on Windows, you should have little problem getting up and running.
+The following steps will walk you through installation on a Mac. Linux should be similar. It's also possible to develop 
+on a Windows machine, but I have not documented the steps. If you've developed Django apps on Windows, you should have little problem getting up and running.
 
 
 ##### Create database
@@ -20,14 +20,14 @@ psql -U postgres -W
 CREATE DATABASE bissasto
 ``
 
-###### 1st open in your system terminal then follow the command line.
+###### 1st open in your system terminal, then follow the command line.
 
 ```bash
 git clone https://github.com/mbrsagor/bishasto.git
 cd bishasto
 ```
 
-###### Then copy code from the ``env_example`` and create new file `.env` then pasts
+###### Then copy code from the ``env_example`` and create a new file `.env`, then paste
 
 -------------------------------------------
 ```bash
@@ -36,7 +36,7 @@ cd bishasto
 ```
 
 
-#### Open postgres using terminal database:
+#### Open PostgreSQL using terminal database:
 ```
 psql -U postgres -W
 ```
@@ -61,9 +61,8 @@ celery -A bishasto worker -l INFO
 celery --help
 ```
 
-> Django Paypal Payment Gateway Integration with Working Example::
+> Django PayPal Payment Gateway Integration with Working Example:
 
 [ Paypal Payment Gateway Integration](https://studygyaan.com/django/django-paypal-payment-gateway-integration-tutorial)
-###### Another link
-[ACCEPT PAYPAL PAYMENTS ON DJANGO APPLICAITON](https://www.guguweb.com/2021/01/12/how-to-accept-paypal-payments-on-your-django-application/)
+
 ## Happy coding :wink:
